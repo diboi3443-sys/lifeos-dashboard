@@ -447,3 +447,39 @@ body::after {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ── Mobile safe areas ── */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ── Mobile-first touch improvements ── */
+@media (max-width: 767px) {
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Larger touch targets on mobile */
+  .glass-card {
+    min-height: 44px;
+  }
+
+  /* Smoother scrolling */
+  main {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ── Shimmer animation for XP bars ── */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}

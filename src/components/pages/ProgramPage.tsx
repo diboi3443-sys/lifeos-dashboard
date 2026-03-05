@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import { Rocket } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import { useLocalStorage } from '@/lib/storage';
 import { PROGRAM_30_DAYS, DayData } from '@/data/30_day_data';
@@ -71,8 +72,8 @@ export default function ProgramPage() {
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
                 <div>
                     <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-lg overflow-hidden border border-blue-500/30 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
-                            <img src="/icons/Program (Sidebar Icon).jpg" alt="Program" className="w-full h-full object-cover transform scale-125" />
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-blue-500/10 border border-blue-500/30">
+                            <Rocket className="w-5 h-5 text-blue-400" />
                         </div>
                         <span className="gradient-text">Карта Пути</span>
                     </h1>

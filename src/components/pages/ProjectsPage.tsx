@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Circle, Clock, Eye, CheckCircle2 } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import { useLocalStorage } from '@/lib/storage';
 
@@ -65,10 +66,10 @@ const DEFAULT_TASKS: ProjectTask[] = [
 ];
 
 const COLUMNS: { id: TaskStatus; label: string; iconNode: React.ReactNode; color: string }[] = [
-    { id: 'todo', label: 'To Do', iconNode: <img src="/icons/to_do_icon.jpg" className="w-4 h-4 rounded-full object-cover" alt="To Do" />, color: 'text-white/70 hover:text-white transition-colors' },
-    { id: 'in-progress', label: 'In Progress', iconNode: <img src="/icons/in_progress_icon.jpg" className="w-4 h-4 rounded-full object-cover" alt="In Progress" />, color: 'text-blue-400' },
-    { id: 'review', label: 'Review', iconNode: <img src="/icons/review_icon.jpg" className="w-4 h-4 rounded-full object-cover" alt="Review" />, color: 'text-purple-400' },
-    { id: 'done', label: 'Done', iconNode: <img src="/icons/done_icon_example.jpg" className="w-4 h-4 rounded-full object-cover" alt="Done" />, color: 'text-green-400' },
+    { id: 'todo', label: 'To Do', iconNode: <Circle className="w-5 h-5 text-white/50" />, color: 'text-white/70 hover:text-white transition-colors' },
+    { id: 'in-progress', label: 'In Progress', iconNode: <Clock className="w-5 h-5 text-blue-400" />, color: 'text-blue-400' },
+    { id: 'review', label: 'Review', iconNode: <Eye className="w-5 h-5 text-purple-400" />, color: 'text-purple-400' },
+    { id: 'done', label: 'Done', iconNode: <CheckCircle2 className="w-5 h-5 text-green-400" />, color: 'text-green-400' },
 ];
 
 
@@ -140,19 +141,19 @@ export default function ProjectsPage() {
             exit="exit"
             className="flex flex-col h-full overflow-hidden"
         >
-            <div className="flex items-center justify-between mb-8 shrink-0">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 md:mb-8 shrink-0">
                 <div>
-                    <h1 className="text-3xl font-black mb-1 flex items-center gap-3">
+                    <h1 className="text-2xl md:text-3xl font-black mb-1 flex items-center gap-3">
                         <span className="gradient-text">Проекты</span>
                     </h1>
-                    <p className="text-white/40">Управление рабочими задачами и дисциплиной</p>
+                    <p className="text-white/40 text-sm">Управление рабочими задачами и дисциплиной</p>
                 </div>
                 <button
                     onClick={() => {
                         setNewTaskStatus('todo');
                         setIsModalOpen(true);
                     }}
-                    className="bg-white text-black px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-white/90 transition-colors"
+                    className="bg-white text-black px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-white/90 transition-colors shrink-0 self-start sm:self-auto"
                 >
                     + Создать задачу
                 </button>

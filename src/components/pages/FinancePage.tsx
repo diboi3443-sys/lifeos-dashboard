@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { Wallet, Plus, Trash2 } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import { useLocalStorage } from '@/lib/storage';
 
@@ -83,8 +84,8 @@ export default function FinancePage() {
             exit={{ opacity: 0, y: -20 }}
         >
             <h1 className="text-2xl font-black mb-6 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg overflow-hidden border border-yellow-500/30 shadow-[0_0_15px_rgba(234,179,8,0.3)]">
-                    <img src="/icons/Finance (Sidebar Icon).jpg" alt="Finance" className="w-full h-full object-cover transform scale-125" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-yellow-500/10 border border-yellow-500/30">
+                    <Wallet className="w-5 h-5 text-yellow-400" />
                 </div>
                 <span className="gradient-text">Финансы</span>
             </h1>
@@ -94,7 +95,7 @@ export default function FinancePage() {
                 <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                     📈 Бюджет месяца
                 </h3>
-                <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-4">
                     <div>
                         <label className="text-xs text-white/40 block mb-1">Доход за месяц (₽)</label>
                         <input type="number" value={budget.income || ''}
@@ -108,7 +109,7 @@ export default function FinancePage() {
                             className={inputClass} />
                     </div>
                 </div>
-                <div className="grid grid-cols-3 gap-4 mb-4">
+                <div className="grid grid-cols-3 gap-2 md:gap-4 mb-4">
                     <div>
                         <label className="text-xs text-white/40 flex items-center gap-1 mb-1">💎 Накопления %</label>
                         <input type="number" value={budget.pctSave} min={0} max={100}
@@ -131,28 +132,28 @@ export default function FinancePage() {
 
                 {/* Overview */}
                 {budget.income > 0 && (
-                    <div className="grid grid-cols-4 gap-3 p-4 rounded-xl border border-white/5" style={{ background: 'rgba(255,255,255,0.02)' }}>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-3 md:p-4 rounded-xl border border-white/5" style={{ background: 'rgba(255,255,255,0.02)' }}>
                         <div className="text-center">
-                            <div className="text-xs text-white/30 mb-1">Накопления</div>
-                            <div className="text-lg font-bold text-green-400">{fmt(saveAmount)}</div>
+                            <div className="text-[10px] md:text-xs text-white/30 mb-1">Накопления</div>
+                            <div className="text-sm md:text-lg font-bold text-green-400">{fmt(saveAmount)}</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-xs text-white/30 mb-1">Развитие</div>
-                            <div className="text-lg font-bold text-blue-400">{fmt(investAmount)}</div>
+                            <div className="text-[10px] md:text-xs text-white/30 mb-1">Развитие</div>
+                            <div className="text-sm md:text-lg font-bold text-blue-400">{fmt(investAmount)}</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-xs text-white/30 mb-1">На жизнь</div>
-                            <div className="text-lg font-bold text-yellow-400">{fmt(freeAmount)}</div>
+                            <div className="text-[10px] md:text-xs text-white/30 mb-1">На жизнь</div>
+                            <div className="text-sm md:text-lg font-bold text-yellow-400">{fmt(freeAmount)}</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-xs text-white/30 mb-1">Лимит/день</div>
-                            <div className="text-lg font-bold text-white">{fmt(dailyLimit)}</div>
+                            <div className="text-[10px] md:text-xs text-white/30 mb-1">Лимит/день</div>
+                            <div className="text-sm md:text-lg font-bold text-white">{fmt(dailyLimit)}</div>
                         </div>
                     </div>
                 )}
             </GlassCard>
 
-            <div className="grid grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
                 {/* Fixed Expenses */}
                 <GlassCard>
                     <h3 className="text-sm font-bold text-white/60 mb-3 flex items-center gap-2">
@@ -181,8 +182,8 @@ export default function FinancePage() {
                     <div className="grid grid-cols-[2fr_1fr_auto] gap-2">
                         <input value={newFixed.name} onChange={e => setNewFixed(p => ({ ...p, name: e.target.value }))} placeholder="Квартира" className={inputClass} />
                         <input value={newFixed.amount} onChange={e => setNewFixed(p => ({ ...p, amount: e.target.value }))} placeholder="45000" className={inputClass} />
-                        <button onClick={addFixed} className="w-10 h-10 rounded-full overflow-hidden hover:opacity-80 transition-opacity shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-                            <img src="/icons/add_plus_button_circular.jpg" className="w-full h-full object-cover" alt="Add" />
+                        <button onClick={addFixed} className="w-10 h-10 rounded-xl flex items-center justify-center bg-blue-500/10 border border-blue-500/30 hover:bg-blue-500/20 transition-colors shrink-0">
+                            <Plus className="w-5 h-5 text-blue-400" />
                         </button>
                     </div>
                 </GlassCard>
@@ -198,8 +199,8 @@ export default function FinancePage() {
                                 <div className="flex items-center justify-between mb-1">
                                     <span className="text-sm text-white/70 font-medium">{g.name}</span>
                                     <button onClick={() => setGoals(p => p.filter(x => x.id !== g.id))}
-                                        className="w-5 h-5 rounded-full overflow-hidden hover:opacity-80 transition-opacity shadow-[0_0_10px_rgba(239,68,68,0.2)]">
-                                        <img src="/icons/delete_remove_button.jpg" className="w-full h-full object-cover" alt="Delete" />
+                                        className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-red-500/20 transition-colors">
+                                        <Trash2 className="w-4 h-4 text-white/30 hover:text-red-400" />
                                     </button>
                                 </div>
                                 <div className="flex items-center justify-between text-xs text-white/40 mb-1">
@@ -226,8 +227,8 @@ export default function FinancePage() {
                     <div className="grid grid-cols-[2fr_1fr_auto] gap-2">
                         <input value={newGoal.name} onChange={e => setNewGoal(p => ({ ...p, name: e.target.value }))} placeholder="MacBook" className={inputClass} />
                         <input value={newGoal.target} onChange={e => setNewGoal(p => ({ ...p, target: e.target.value }))} placeholder="200000" className={inputClass} />
-                        <button onClick={addGoalFn} className="w-10 h-10 rounded-full overflow-hidden hover:opacity-80 transition-opacity shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-                            <img src="/icons/add_plus_button_circular.jpg" className="w-full h-full object-cover" alt="Add" />
+                        <button onClick={addGoalFn} className="w-10 h-10 rounded-xl flex items-center justify-center bg-blue-500/10 border border-blue-500/30 hover:bg-blue-500/20 transition-colors shrink-0">
+                            <Plus className="w-5 h-5 text-blue-400" />
                         </button>
                     </div>
                 </GlassCard>
@@ -238,7 +239,7 @@ export default function FinancePage() {
                 <h3 className="text-sm font-bold text-white/60 mb-3 flex items-center gap-2">
                     🧾 Записать расход
                 </h3>
-                <div className="grid grid-cols-[2fr_1fr_1fr_auto] gap-3 mb-4 items-end">
+                <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr_1fr_auto] gap-3 mb-4 items-end">
                     <div>
                         <label className="text-xs text-white/40 block mb-1">Описание</label>
                         <input value={newExpense.desc} onChange={e => setNewExpense(p => ({ ...p, desc: e.target.value }))} placeholder="Кофе" className={inputClass} />
@@ -253,8 +254,8 @@ export default function FinancePage() {
                             {CATEGORIES.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
                         </select>
                     </div>
-                    <button onClick={addExpense} className="w-10 h-10 rounded-full overflow-hidden hover:opacity-80 transition-opacity shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-                        <img src="/icons/add_plus_button_circular.jpg" className="w-full h-full object-cover" alt="Add" />
+                    <button onClick={addExpense} className="w-10 h-10 rounded-xl flex items-center justify-center bg-blue-500/10 border border-blue-500/30 hover:bg-blue-500/20 transition-colors shrink-0">
+                        <Plus className="w-5 h-5 text-blue-400" />
                     </button>
                 </div>
 

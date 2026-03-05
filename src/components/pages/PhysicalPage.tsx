@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Dumbbell, Trash2 } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import { useLocalStorage } from '@/lib/storage';
 
@@ -85,12 +86,12 @@ export default function PhysicalPage() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
         >
-            <div className="inline-block align-middle mr-3 w-8 h-8 rounded-lg overflow-hidden border border-green-500/30 shadow-[0_0_15px_rgba(34,197,94,0.3)] bg-green-950">
-                <img src="/icons/Body (Sidebar Icon).jpg" alt="Physical" className="w-full h-full object-cover transform scale-125" />
+            <div className="inline-flex align-middle mr-3 w-10 h-10 rounded-xl items-center justify-center bg-green-500/10 border border-green-500/30">
+                <Dumbbell className="w-5 h-5 text-green-400" />
             </div>
             <span className="gradient-text align-middle">Физика</span>
 
-            <div className="grid grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
                 {/* Body Measurements */}
                 <GlassCard>
                     <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
@@ -174,7 +175,7 @@ export default function PhysicalPage() {
                 <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                     <span className="text-white/50 text-xl">✍️</span> Добавить тренировку
                 </h3>
-                <div className="grid grid-cols-6 gap-3 items-end">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 items-end">
                     <div>
                         <label className="text-xs text-white/40 block mb-1">Дата</label>
                         <input type="date" value={newWorkout.date} onChange={e => setNewWorkout(p => ({ ...p, date: e.target.value }))} className={inputClass} />
@@ -234,8 +235,8 @@ export default function PhysicalPage() {
                                         </td>
                                         <td className="py-2 text-white/40 truncate max-w-[150px]">{w.note}</td>
                                         <td className="py-2">
-                                            <button onClick={() => removeWorkout(w.id)} className="w-6 h-6 rounded-full overflow-hidden hover:opacity-80 transition-opacity shadow-[0_0_10px_rgba(239,68,68,0.2)]">
-                                                <img src="/icons/delete_remove_button.jpg" className="w-full h-[200%] object-cover" style={{ objectPosition: 'center' }} alt="Delete" />
+                                            <button onClick={() => removeWorkout(w.id)} className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-red-500/20 transition-colors">
+                                                <Trash2 className="w-4 h-4 text-white/30 hover:text-red-400" />
                                             </button>
                                         </td>
                                     </tr>

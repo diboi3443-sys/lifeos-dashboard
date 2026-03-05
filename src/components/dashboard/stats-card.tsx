@@ -22,32 +22,32 @@ export function StatsCard({ stats }: { stats: UserStats }) {
   const avg = Math.round(statArray.reduce((s, x) => s + x.value, 0) / statArray.length)
 
   return (
-    <div className="col-span-1 rounded-2xl border border-border bg-card p-5 md:col-span-2 lg:col-span-3">
-      <div className="mb-5 flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-c-violet/10">
-            <Swords className="h-4 w-4 text-c-violet" />
+    <div className="rounded-2xl border border-border bg-card p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-c-violet/10">
+            <Swords className="h-5 w-5 text-c-violet" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold">Характеристики</h3>
+            <h3 className="text-sm font-semibold text-foreground">Характеристики</h3>
             <p className="text-xs text-muted-foreground">Навыки персонажа</p>
           </div>
         </div>
         <div className="flex items-center gap-1.5 rounded-lg border border-c-violet/20 bg-c-violet/5 px-3 py-1.5">
-          <Swords className="h-3 w-3 text-c-violet" />
+          <Swords className="h-3.5 w-3.5 text-c-violet" />
           <span className="text-xs font-bold text-c-violet">Ранг B+</span>
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
+      {/* Stats grid -- 2 cols on mobile, 5 on desktop */}
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
         {statArray.map((s) => (
-          <div key={s.name} className="rounded-xl border border-border bg-secondary p-4">
-            <div className="mb-3 flex items-center justify-between">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ backgroundColor: `${s.color}12` }}>
-                <s.icon className="h-4 w-4" style={{ color: s.color }} />
+          <div key={s.name} className="rounded-xl border border-border bg-secondary p-3.5">
+            <div className="mb-2 flex items-center justify-between">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: `${s.color}15` }}>
+                <s.icon className="h-5 w-5" style={{ color: s.color }} />
               </div>
-              <span className="flex items-center gap-0.5 text-[11px] font-medium text-c-emerald">
+              <span className="flex items-center gap-0.5 text-xs font-medium text-c-emerald">
                 <TrendingUp className="h-3 w-3" />{s.delta}
               </span>
             </div>
@@ -63,8 +63,8 @@ export function StatsCard({ stats }: { stats: UserStats }) {
         ))}
       </div>
 
-      {/* Total */}
-      <div className="mt-4 flex items-center justify-between rounded-xl border border-border bg-secondary px-5 py-3">
+      {/* Total power */}
+      <div className="mt-4 flex items-center justify-between rounded-xl border border-border bg-secondary px-4 py-3">
         <div>
           <span className="text-xs text-muted-foreground">Общая сила</span>
           <div className="flex items-baseline gap-1">
@@ -73,15 +73,13 @@ export function StatsCard({ stats }: { stats: UserStats }) {
           </div>
         </div>
         <div className="relative h-14 w-14">
-          <svg className="-rotate-90" viewBox="0 0 56 56" width="56" height="56">
+          <svg className="-rotate-90" viewBox="0 0 56 56" width="100%" height="100%">
             <circle cx="28" cy="28" r="22" fill="none" stroke="currentColor" strokeWidth="4" className="text-border" />
-            <circle
-              cx="28" cy="28" r="22" fill="none" strokeWidth="4" strokeLinecap="round"
-              stroke="url(#sg)" strokeDasharray={`${(avg / 100) * 138.23} 138.23`}
-            />
+            <circle cx="28" cy="28" r="22" fill="none" strokeWidth="4" strokeLinecap="round"
+              stroke="url(#sg)" strokeDasharray={`${(avg / 100) * 138.23} 138.23`} />
             <defs><linearGradient id="sg" x1="0%" y1="0%" x2="100%"><stop offset="0%" stopColor="#6366f1" /><stop offset="100%" stopColor="#8b5cf6" /></linearGradient></defs>
           </svg>
-          <span className="absolute inset-0 flex items-center justify-center text-xs font-bold">{avg}%</span>
+          <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-foreground">{avg}%</span>
         </div>
       </div>
     </div>

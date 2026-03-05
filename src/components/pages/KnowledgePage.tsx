@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { GraduationCap } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 
 const KB_SECTIONS = [
@@ -253,20 +254,20 @@ export default function KnowledgePage() {
             exit={{ opacity: 0, y: -20 }}
         >
             <h1 className="text-2xl font-black mb-6 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg overflow-hidden border border-purple-500/30 shadow-[0_0_15px_rgba(139,92,246,0.3)]">
-                    <img src="/icons/Knowledge (Sidebar Icon).jpg" alt="Knowledge" className="w-full h-full object-cover transform scale-125" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-purple-500/10 border border-purple-500/30">
+                    <GraduationCap className="w-5 h-5 text-purple-400" />
                 </div>
                 <span className="gradient-text">База знаний</span>
             </h1>
 
-            <div className="flex gap-6">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6">
                 {/* Sidebar */}
-                <div className="w-56 shrink-0">
-                    <GlassCard className="sticky top-6">
+                <div className="w-full md:w-56 shrink-0">
+                    <GlassCard className="md:sticky md:top-6">
                         {groups.map(group => (
-                            <div key={group} className="mb-4">
+                            <div key={group} className="mb-3 md:mb-4">
                                 <h4 className="text-xs text-white/30 font-semibold uppercase tracking-wider mb-2">{group}</h4>
-                                <div className="space-y-1">
+                                <div className="flex flex-wrap md:flex-col gap-1">
                                     {KB_SECTIONS.filter(s => s.group === group).map(s => (
                                         <button key={s.id}
                                             onClick={() => setActiveSection(s.id)}
