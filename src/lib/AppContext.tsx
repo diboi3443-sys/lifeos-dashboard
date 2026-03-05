@@ -91,6 +91,24 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     const login = useCallback(async (telegramId: number = 123456) => {
+        // Check if backend is available before attempting login
+        const online = await api.isBackendAvailable();
+        setIsOnline(online);
+
+        if (!online) {
+            // Offline / demo mode — set defaults without API calls
+            setIsAuthenticated(true);
+            setUserId(telegramId);
+            setLevel(1);
+            setLevelName('Новичок');
+            setXp(0);
+            setMaxXp(100);
+            setStreak({ current: 0, best: 0 });
+            setScores({ disc: 0, phys: 0, intel: 0, emo: 0, pub: 0, overall: 0 });
+            setTodayHabits({ done: 0, total: 19, pct: 0 });
+            return;
+        }
+
         try {
             const tokenResp = await api.devLogin(telegramId);
             setUserId(tokenResp.user_id);
@@ -98,6 +116,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
             await refreshSummary();
         } catch (e) {
             console.warn('Login failed:', e);
+            // Still allow usage in demo mode
+            setIsAuthenticated(true);
+            setUserId(telegramId);
         }
     }, [refreshSummary]);
 
@@ -118,9 +139,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
                         await login();
                     }
                 } else {
-                    // Auto-login for dev mode
                     await login();
                 }
+            } else {
+                // Offline mode — set demo defaults so app is usable
+                setIsAuthenticated(true);
+                setUserId(123456);
+                setLevel(1);
+                setLevelName('Новичок');
             }
         })();
     }, [login, refreshSummary]);

@@ -55,8 +55,12 @@ export default function Home() {
         localStorage.setItem('user_name', name);
         setUserName(name);
         setIsOnboarded(true);
-        if (!app.isAuthenticated) {
-            await app.login();
+        try {
+            if (!app.isAuthenticated) {
+                await app.login();
+            }
+        } catch {
+            // Backend unavailable — continue in offline/demo mode
         }
     }, [app]);
 
