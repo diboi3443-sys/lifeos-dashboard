@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Menu, X, ChevronLeft, Settings, LogOut, Flame,
@@ -22,7 +22,6 @@ const NAV_ITEMS = [
     { id: 'nutrition', label: 'Питание', icon: Utensils, color: '#14b8a6' },
 ];
 
-/* Bottom bar shows first 5 items on mobile */
 const BOTTOM_NAV = NAV_ITEMS.slice(0, 5);
 
 interface SidebarProps {
@@ -37,29 +36,21 @@ interface SidebarProps {
 export default function Sidebar({ activePage, onNavigate, streak, level, xp, maxXp }: SidebarProps) {
     const [collapsed, setCollapsed] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const check = () => setIsMobile(window.innerWidth < 768);
-        check();
-        window.addEventListener('resize', check);
-        return () => window.removeEventListener('resize', check);
-    }, []);
 
     const handleNav = (page: string) => {
         onNavigate(page);
-        if (isMobile) setMobileOpen(false);
+        setMobileOpen(false);
     };
 
     const sidebarWidth = collapsed ? 72 : 260;
 
-    /* ─── Full Sidebar Content (desktop + mobile drawer) ─── */
-    const SidebarContent = ({ isMobileDrawer = false }: { isMobileDrawer?: boolean }) => (
+    /* ─── Reusable sidebar content ─── */
+    const SidebarContent = ({ isDrawer = false }: { isDrawer?: boolean }) => (
         <div className="flex h-full flex-col">
             {/* Header */}
             <div className="flex items-center justify-between px-5 h-16 shrink-0">
                 <AnimatePresence>
-                    {(!collapsed || isMobileDrawer) && (
+                    {(!collapsed || isDrawer) && (
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -76,7 +67,7 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                         </motion.div>
                     )}
                 </AnimatePresence>
-                {isMobileDrawer ? (
+                {isDrawer ? (
                     <button
                         onClick={() => setMobileOpen(false)}
                         className="flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
@@ -114,7 +105,7 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                         <Flame className="w-5 h-5 text-c-amber" />
                     </div>
                     <AnimatePresence>
-                        {(!collapsed || isMobileDrawer) && (
+                        {(!collapsed || isDrawer) && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-w-0">
                                 <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/50">Streak</div>
                                 <div className="font-bold text-base leading-tight tabular-nums text-foreground">{streak} дней</div>
@@ -124,13 +115,13 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                 </div>
             </div>
 
-            {(!collapsed || isMobileDrawer) && (
+            {(!collapsed || isDrawer) && (
                 <div className="px-6 mb-2">
                     <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/40">Навигация</span>
                 </div>
             )}
 
-            {/* Nav items */}
+            {/* Nav */}
             <nav className="flex-1 overflow-y-auto scrollbar-hide px-3 pb-2">
                 <div className="flex flex-col gap-0.5">
                     {NAV_ITEMS.map((item) => {
@@ -156,7 +147,7 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                             >
                                 {isActive && (
                                     <motion.div
-                                        layoutId="activeTab"
+                                        layoutId={isDrawer ? "activeTabDrawer" : "activeTab"}
                                         className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full"
                                         style={{ background: item.color }}
                                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -169,7 +160,7 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                                     <Icon className="w-[18px] h-[18px] transition-all" style={{ color: isActive ? item.color : undefined, opacity: isActive ? 1 : 0.5 }} />
                                 </div>
                                 <AnimatePresence>
-                                    {(!collapsed || isMobileDrawer) && (
+                                    {(!collapsed || isDrawer) && (
                                         <motion.span
                                             initial={{ opacity: 0, width: 0 }}
                                             animate={{ opacity: 1, width: 'auto' }}
@@ -191,7 +182,7 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                 <div className="h-px bg-border mb-3 mx-2" />
                 <div className="rounded-xl p-3 bg-secondary border border-border mb-2">
                     <div className="flex items-center justify-between mb-2">
-                        {(!collapsed || isMobileDrawer) ? (
+                        {(!collapsed || isDrawer) ? (
                             <>
                                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/50">Уровень {level}</span>
                                 <span className="text-[10px] tabular-nums text-muted-foreground/40">{xp}/{maxXp} XP</span>
@@ -210,7 +201,7 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                     </div>
                 </div>
 
-                {(!collapsed || isMobileDrawer) && (
+                {(!collapsed || isDrawer) && (
                     <div className="flex flex-col gap-0.5">
                         <button className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-muted-foreground/60 hover:text-muted-foreground hover:bg-secondary transition-colors text-sm">
                             <Settings className="w-[18px] h-[18px]" />
@@ -228,107 +219,103 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
 
     return (
         <>
-            {/* ═══ MOBILE ═══ */}
-            {isMobile && (
-                <>
-                    {/* Top bar -- taller, more space */}
-                    <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between border-b border-border bg-card/95 backdrop-blur-xl px-4 h-14">
-                        <button
-                            onClick={() => setMobileOpen(true)}
-                            className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-secondary active:scale-95 transition-transform"
-                            aria-label="Open menu"
-                        >
-                            <Menu className="h-5 w-5 text-muted-foreground" />
-                        </button>
+            {/* ═══════════════════ MOBILE (CSS: visible below md) ═══════════════════ */}
+            <div className="md:hidden">
+                {/* Top bar */}
+                <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between border-b border-border bg-card/95 backdrop-blur-xl px-4 h-14">
+                    <button
+                        onClick={() => setMobileOpen(true)}
+                        className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-secondary active:scale-95 transition-transform"
+                        aria-label="Open menu"
+                    >
+                        <Menu className="h-5 w-5 text-muted-foreground" />
+                    </button>
 
-                        <div className="flex items-center gap-2">
-                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 border border-primary/20">
-                                <Rocket className="w-4 h-4 text-primary" />
-                            </div>
-                            <span className="text-sm font-bold tracking-tight text-foreground">
-                                Life<span className="text-primary">OS</span>
-                            </span>
+                    <div className="flex items-center gap-2">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 border border-primary/20">
+                            <Rocket className="w-4 h-4 text-primary" />
                         </div>
+                        <span className="text-sm font-bold tracking-tight text-foreground">
+                            Life<span className="text-primary">OS</span>
+                        </span>
+                    </div>
 
-                        <div className="flex items-center gap-1.5 rounded-xl border border-c-amber/20 bg-c-amber/5 px-2.5 py-1.5">
-                            <Flame className="w-4 h-4 text-c-amber" />
-                            <span className="text-xs font-bold tabular-nums text-c-amber">{streak}</span>
-                        </div>
-                    </header>
+                    <div className="flex items-center gap-1.5 rounded-xl border border-c-amber/20 bg-c-amber/5 px-2.5 py-1.5">
+                        <Flame className="w-4 h-4 text-c-amber" />
+                        <span className="text-xs font-bold tabular-nums text-c-amber">{streak}</span>
+                    </div>
+                </header>
 
-                    {/* Drawer overlay */}
-                    <AnimatePresence>
-                        {mobileOpen && (
-                            <>
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm"
-                                    onClick={() => setMobileOpen(false)}
-                                />
-                                <motion.aside
-                                    initial={{ x: '-100%' }}
-                                    animate={{ x: 0 }}
-                                    exit={{ x: '-100%' }}
-                                    transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-                                    className="fixed left-0 top-0 z-[80] h-full w-[300px] border-r border-border bg-card"
-                                    style={{ background: 'linear-gradient(180deg, hsl(240 10% 5.5%) 0%, hsl(240 10% 4%) 100%)' }}
+                {/* Drawer overlay */}
+                <AnimatePresence>
+                    {mobileOpen && (
+                        <>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm"
+                                onClick={() => setMobileOpen(false)}
+                            />
+                            <motion.aside
+                                initial={{ x: '-100%' }}
+                                animate={{ x: 0 }}
+                                exit={{ x: '-100%' }}
+                                transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+                                className="fixed left-0 top-0 z-[80] h-full w-[300px] border-r border-border bg-card"
+                                style={{ background: 'linear-gradient(180deg, hsl(240 10% 5.5%) 0%, hsl(240 10% 4%) 100%)' }}
+                            >
+                                <SidebarContent isDrawer />
+                            </motion.aside>
+                        </>
+                    )}
+                </AnimatePresence>
+
+                {/* Bottom tab bar */}
+                <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 backdrop-blur-xl safe-area-bottom">
+                    <div className="grid grid-cols-5 h-16">
+                        {BOTTOM_NAV.map((item) => {
+                            const isActive = activePage === item.id;
+                            const Icon = item.icon;
+                            return (
+                                <button
+                                    key={item.id}
+                                    onClick={() => handleNav(item.id)}
+                                    className="relative flex flex-col items-center justify-center gap-0.5 active:scale-95 transition-transform"
                                 >
-                                    <SidebarContent isMobileDrawer />
-                                </motion.aside>
-                            </>
-                        )}
-                    </AnimatePresence>
-
-                    {/* Bottom tab bar -- bigger touch targets, proper spacing */}
-                    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 backdrop-blur-xl safe-area-bottom">
-                        <div className="grid grid-cols-5 h-16">
-                            {BOTTOM_NAV.map((item) => {
-                                const isActive = activePage === item.id;
-                                const Icon = item.icon;
-                                return (
-                                    <button
-                                        key={item.id}
-                                        onClick={() => handleNav(item.id)}
-                                        className="relative flex flex-col items-center justify-center gap-0.5 active:scale-95 transition-transform"
-                                    >
-                                        {isActive && (
-                                            <motion.div
-                                                layoutId="mobileActiveTab"
-                                                className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-[2px] rounded-full"
-                                                style={{ background: item.color }}
-                                            />
-                                        )}
-                                        <Icon
-                                            className="w-6 h-6 transition-colors"
-                                            style={{ color: isActive ? item.color : 'var(--muted-foreground)' }}
+                                    {isActive && (
+                                        <motion.div
+                                            layoutId="mobileActiveTab"
+                                            className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-[2px] rounded-full"
+                                            style={{ background: item.color }}
                                         />
-                                        <span
-                                            className="text-[10px] font-medium leading-tight"
-                                            style={{ color: isActive ? item.color : 'var(--muted-foreground)' }}
-                                        >
-                                            {item.label}
-                                        </span>
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    </nav>
-                </>
-            )}
+                                    )}
+                                    <Icon
+                                        className="w-6 h-6 transition-colors"
+                                        style={{ color: isActive ? item.color : 'var(--muted-foreground)' }}
+                                    />
+                                    <span
+                                        className="text-[10px] font-medium leading-tight"
+                                        style={{ color: isActive ? item.color : 'var(--muted-foreground)' }}
+                                    >
+                                        {item.label}
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </nav>
+            </div>
 
-            {/* ═══ DESKTOP ═══ */}
-            {!isMobile && (
-                <motion.aside
-                    animate={{ width: sidebarWidth }}
-                    transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                    className="fixed left-0 top-0 h-screen z-50 border-r border-border"
-                    style={{ background: 'linear-gradient(180deg, hsl(240 10% 5.5%) 0%, hsl(240 10% 4%) 100%)' }}
-                >
-                    <SidebarContent />
-                </motion.aside>
-            )}
+            {/* ═══════════════════ DESKTOP (CSS: visible at md+) ═══════════════════ */}
+            <motion.aside
+                animate={{ width: sidebarWidth }}
+                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                className="hidden md:block fixed left-0 top-0 h-screen z-50 border-r border-border"
+                style={{ background: 'linear-gradient(180deg, hsl(240 10% 5.5%) 0%, hsl(240 10% 4%) 100%)' }}
+            >
+                <SidebarContent />
+            </motion.aside>
         </>
     );
 }
