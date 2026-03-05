@@ -103,7 +103,7 @@ export default function NutritionPage() {
 
             {/* ── Settings Row ── */}
             <GlassCard className="mb-6">
-                <div className="flex flex-wrap items-end gap-6">
+                <div className="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-end md:gap-6">
                     <div>
                         <label className="text-xs text-white/40 block mb-1">Вес (кг)</label>
                         <input
@@ -114,10 +114,10 @@ export default function NutritionPage() {
                     </div>
                     <div>
                         <label className="text-xs text-white/40 block mb-1">Цель</label>
-                        <div className="flex gap-2">
+                        <div className="flex flex-wrap gap-2">
                             {(Object.keys(GOAL_LABELS) as NutritionGoal[]).map(g => (
                                 <button key={g} onClick={() => setGoal(g)}
-                                    className="px-4 py-2 rounded-lg text-sm font-bold transition-all"
+                                    className="px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm font-bold transition-all"
                                     style={{
                                         background: goal === g ? `${GOAL_COLORS[g]}20` : 'rgba(255,255,255,0.03)',
                                         color: goal === g ? GOAL_COLORS[g] : 'rgba(255,255,255,0.4)',
@@ -129,15 +129,15 @@ export default function NutritionPage() {
                             ))}
                         </div>
                     </div>
-                    <div className="flex gap-6 ml-auto">
+                    <div className="flex gap-4 md:gap-6 md:ml-auto">
                         <div className="text-center">
-                            <div className="text-xs text-white/30">Калории</div>
-                            <div className="text-xl font-bold text-white">{targets.calories}</div>
+                            <div className="text-[10px] md:text-xs text-white/30">Калории</div>
+                            <div className="text-lg md:text-xl font-bold text-white">{targets.calories}</div>
                         </div>
                         {macros.map(m => (
                             <div key={m.label} className="text-center">
-                                <div className="text-xs text-white/30">{m.label}</div>
-                                <div className="text-xl font-bold" style={{ color: m.color }}>{m.target}г</div>
+                                <div className="text-[10px] md:text-xs text-white/30">{m.label}</div>
+                                <div className="text-lg md:text-xl font-bold" style={{ color: m.color }}>{m.target}г</div>
                             </div>
                         ))}
                     </div>
@@ -145,7 +145,7 @@ export default function NutritionPage() {
             </GlassCard>
 
             {/* ── Progress Hero ── */}
-            <div className="grid grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-4 md:mb-6">
                 {/* Calories ring */}
                 <GlassCard className="flex flex-col items-center justify-center py-6">
                     <div className="relative w-28 h-28 mb-3">
@@ -192,7 +192,7 @@ export default function NutritionPage() {
             </div>
 
             {/* ── Meals ── */}
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 {MEALS.map(mealType => {
                     const entries = meals[mealType];
                     const mealCal = entries.reduce((s, e) => s + e.cal, 0);

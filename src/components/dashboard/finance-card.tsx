@@ -35,7 +35,6 @@ export function FinanceCard() {
     .reduce((s, e) => s + e.amount, 0);
 
   const monthSpent = expenses.reduce((s, e) => s + e.amount, 0) + fixedTotal;
-
   const progress = dailyLimit > 0 ? Math.min((todaySpent / dailyLimit) * 100, 100) : 0;
 
   const catStats: Record<string, number> = {};
@@ -49,35 +48,35 @@ export function FinanceCard() {
     });
 
   return (
-    <div className="flex flex-col rounded-2xl border border-border bg-card p-4 sm:p-5 lg:col-span-1">
-      <div className="mb-3 flex items-center justify-between sm:mb-4">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-c-violet/10 sm:h-11 sm:w-11">
-            <Wallet className="h-5 w-5 text-c-violet sm:h-6 sm:w-6" />
+    <div className="flex flex-col rounded-2xl border border-border bg-card p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-c-violet/10">
+            <Wallet className="h-5 w-5 text-c-violet" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground">Финансы</h3>
-            <p className="text-[11px] text-muted-foreground">{new Date().toLocaleString('ru-RU', { month: 'long', year: 'numeric' })}</p>
+            <p className="text-xs text-muted-foreground">{new Date().toLocaleString('ru-RU', { month: 'long', year: 'numeric' })}</p>
           </div>
         </div>
       </div>
 
       {/* Daily spending */}
-      <div className="mb-3 rounded-xl border border-border bg-secondary p-3 sm:mb-4 sm:p-4">
+      <div className="mb-4 rounded-xl border border-border bg-secondary p-4">
         <div className="flex items-baseline gap-1.5">
-          <span className="text-2xl font-bold tabular-nums sm:text-3xl" style={{ color: todaySpent > dailyLimit && dailyLimit > 0 ? '#ef4444' : 'inherit' }}>
+          <span className="text-3xl font-bold tabular-nums" style={{ color: todaySpent > dailyLimit && dailyLimit > 0 ? '#ef4444' : 'inherit' }}>
             {fmt(todaySpent)}
           </span>
-          <span className="text-base text-muted-foreground sm:text-lg">{"\u20BD"}</span>
+          <span className="text-lg text-muted-foreground">{"\u20BD"}</span>
         </div>
-        <div className="mt-2 space-y-1">
-          <div className="flex justify-between text-[11px] sm:text-xs">
+        <div className="mt-2 space-y-1.5">
+          <div className="flex justify-between text-xs">
             <span className="text-muted-foreground">из {fmt(dailyLimit)} {"\u20BD"}/день</span>
             <span className="font-semibold" style={{ color: todaySpent > dailyLimit && dailyLimit > 0 ? '#ef4444' : '#22c55e' }}>
               {dailyLimit > 0 ? Math.round(100 - (todaySpent / dailyLimit) * 100) : 0}% свободно
             </span>
           </div>
-          <div className="h-1.5 overflow-hidden rounded-full bg-background sm:h-2">
+          <div className="h-2 overflow-hidden rounded-full bg-background">
             <div className="h-full rounded-full transition-all duration-700"
               style={{ width: `${progress}%`, background: todaySpent > dailyLimit && dailyLimit > 0 ? '#ef4444' : 'linear-gradient(to right, #8b5cf6, #3b82f6)' }} />
           </div>
@@ -85,39 +84,39 @@ export function FinanceCard() {
       </div>
 
       {/* Categories */}
-      <div className="mb-3 flex-1 max-h-[100px] overflow-hidden sm:mb-4 sm:max-h-[120px]">
+      <div className="mb-4 flex-1">
         {sortedCats.length > 0 ? (
-          <div className="flex flex-col gap-2 sm:gap-2.5">
+          <div className="flex flex-col gap-2.5">
             {sortedCats.map((c) => (
-              <div key={c.label} className="flex items-center gap-2.5 sm:gap-3">
-                <div className="h-2 w-2 rounded-full shrink-0" style={{ backgroundColor: c.color }} />
-                <span className="flex-1 text-[11px] text-muted-foreground truncate sm:text-xs">{c.label}</span>
-                <span className="text-[11px] font-medium tabular-nums text-foreground sm:text-xs">{fmt(c.amount)} {"\u20BD"}</span>
-                <span className="w-7 text-right text-[10px] tabular-nums text-muted-foreground/50 sm:text-[11px]">{c.pct}%</span>
+              <div key={c.label} className="flex items-center gap-3">
+                <div className="h-2.5 w-2.5 rounded-full shrink-0" style={{ backgroundColor: c.color }} />
+                <span className="flex-1 text-sm text-muted-foreground truncate">{c.label}</span>
+                <span className="text-sm font-medium tabular-nums text-foreground">{fmt(c.amount)} {"\u20BD"}</span>
+                <span className="w-8 text-right text-xs tabular-nums text-muted-foreground/50">{c.pct}%</span>
               </div>
             ))}
           </div>
         ) : (
-          <div className="text-[11px] text-muted-foreground text-center py-4 sm:text-xs">Нет трат за месяц</div>
+          <div className="text-sm text-muted-foreground text-center py-6">Нет трат за месяц</div>
         )}
       </div>
 
       {/* Bottom stats */}
-      <div className="mt-auto grid grid-cols-3 gap-1.5 sm:gap-2">
-        <div className="flex flex-col items-center gap-0.5 rounded-lg border border-border bg-secondary p-2 sm:gap-1 sm:p-2.5">
-          <ArrowUpRight className="h-4 w-4 text-c-emerald sm:h-5 sm:w-5" />
-          <span className="text-[11px] font-bold tabular-nums text-foreground sm:text-xs">{fmt(Math.round(budget.income / 1000))}к</span>
-          <span className="text-[9px] text-muted-foreground sm:text-[10px]">Доход</span>
+      <div className="mt-auto grid grid-cols-3 gap-2">
+        <div className="flex flex-col items-center gap-1 rounded-xl border border-border bg-secondary p-3">
+          <ArrowUpRight className="h-5 w-5 text-c-emerald" />
+          <span className="text-sm font-bold tabular-nums text-foreground">{fmt(Math.round(budget.income / 1000))}к</span>
+          <span className="text-[10px] text-muted-foreground">Доход</span>
         </div>
-        <div className="flex flex-col items-center gap-0.5 rounded-lg border border-border bg-secondary p-2 sm:gap-1 sm:p-2.5">
-          <ArrowDownRight className="h-4 w-4 text-c-rose sm:h-5 sm:w-5" />
-          <span className="text-[11px] font-bold tabular-nums text-foreground sm:text-xs">{fmt(Math.round(monthSpent / 1000))}к</span>
-          <span className="text-[9px] text-muted-foreground sm:text-[10px]">Расход</span>
+        <div className="flex flex-col items-center gap-1 rounded-xl border border-border bg-secondary p-3">
+          <ArrowDownRight className="h-5 w-5 text-c-rose" />
+          <span className="text-sm font-bold tabular-nums text-foreground">{fmt(Math.round(monthSpent / 1000))}к</span>
+          <span className="text-[10px] text-muted-foreground">Расход</span>
         </div>
-        <div className="flex flex-col items-center gap-0.5 rounded-lg border border-border bg-secondary p-2 sm:gap-1 sm:p-2.5">
-          <PiggyBank className="h-4 w-4 text-c-sky sm:h-5 sm:w-5" />
-          <span className="text-[11px] font-bold tabular-nums text-foreground sm:text-xs">{fmt(Math.round(saveAmount / 1000))}к</span>
-          <span className="text-[9px] text-muted-foreground sm:text-[10px]">Копилка</span>
+        <div className="flex flex-col items-center gap-1 rounded-xl border border-border bg-secondary p-3">
+          <PiggyBank className="h-5 w-5 text-c-sky" />
+          <span className="text-sm font-bold tabular-nums text-foreground">{fmt(Math.round(saveAmount / 1000))}к</span>
+          <span className="text-[10px] text-muted-foreground">Копилка</span>
         </div>
       </div>
     </div>

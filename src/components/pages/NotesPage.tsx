@@ -95,7 +95,7 @@ export default function NotesPage() {
                 📝 <span className="gradient-text">Заметки</span>
             </h1>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 {/* LEFT: New Note */}
                 <div className="space-y-4">
                     <GlassCard>
@@ -204,7 +204,7 @@ export default function NotesPage() {
                         </button>
                     </div>
 
-                    <div className="flex gap-2 mb-4">
+                    <div className="flex flex-col sm:flex-row gap-2 mb-4">
                         <div className="flex-1 relative">
                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white/20 text-xs">🔍</span>
                             <input value={search} onChange={e => setSearch(e.target.value)}

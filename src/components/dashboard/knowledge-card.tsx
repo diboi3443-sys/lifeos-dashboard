@@ -10,44 +10,44 @@ const items = [
 
 export function KnowledgeCard() {
   return (
-    <div className="col-span-1 rounded-2xl border border-border bg-card p-4 sm:p-5 sm:col-span-2 lg:col-span-4">
-      <div className="mb-4 flex items-center justify-between sm:mb-5">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 sm:h-11 sm:w-11">
-            <GraduationCap className="h-5 w-5 text-primary sm:h-6 sm:w-6" />
+    <div className="rounded-2xl border border-border bg-card p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10">
+            <GraduationCap className="h-5 w-5 text-primary" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground">Обучение</h3>
-            <p className="text-[11px] text-muted-foreground">3 активных материала</p>
+            <p className="text-xs text-muted-foreground">3 активных материала</p>
           </div>
         </div>
-        <span className="rounded-md bg-secondary px-2 py-1 text-[10px] font-medium text-muted-foreground sm:px-2.5 sm:text-[11px]">+120 XP / нед</span>
+        <span className="rounded-lg bg-secondary px-2.5 py-1 text-xs font-medium text-muted-foreground">+120 XP / нед</span>
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+      <div className="flex flex-col gap-3 md:grid md:grid-cols-3">
         {items.map((it) => (
-          <div key={it.title} className="group rounded-xl border border-border bg-secondary p-3.5 transition-colors hover:bg-muted sm:p-4">
+          <div key={it.title} className="group rounded-xl border border-border bg-secondary p-4 transition-colors hover:bg-muted">
             <div className="mb-3 flex items-center justify-between">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl sm:h-11 sm:w-11" style={{ backgroundColor: `${it.color}15` }}>
-                <it.icon className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: it.color }} />
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl" style={{ backgroundColor: `${it.color}15` }}>
+                <it.icon className="h-5 w-5" style={{ color: it.color }} />
               </div>
-              <button className="flex h-7 w-7 items-center justify-center rounded-lg border border-border opacity-60 transition-all hover:opacity-100 hover:bg-card sm:h-8 sm:w-8 sm:opacity-0 sm:group-hover:opacity-100">
-                <Play className="h-3 w-3 text-muted-foreground" />
+              <button className="flex h-8 w-8 items-center justify-center rounded-lg border border-border opacity-60 transition-all hover:opacity-100 hover:bg-card md:opacity-0 md:group-hover:opacity-100">
+                <Play className="h-3.5 w-3.5 text-muted-foreground" />
               </button>
             </div>
-            <span className="inline-block rounded-md px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider sm:text-[9px]" style={{ backgroundColor: `${it.color}10`, color: it.color }}>
+            <span className="inline-block rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider" style={{ backgroundColor: `${it.color}10`, color: it.color }}>
               {it.type}
             </span>
-            <p className="mt-1.5 truncate text-xs font-semibold text-foreground sm:text-sm">{it.title}</p>
-            <div className="mt-1 flex items-center gap-1.5 text-[11px] text-muted-foreground sm:text-xs">
-              <Clock className="h-2.5 w-2.5 sm:h-3 sm:w-3" />{it.time} осталось
+            <p className="mt-1.5 truncate text-sm font-semibold text-foreground">{it.title}</p>
+            <div className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
+              <Clock className="h-3 w-3" />{it.time} осталось
             </div>
-            <div className="mt-2.5 sm:mt-3">
-              <div className="mb-1 flex justify-between text-[10px] sm:text-[11px]">
+            <div className="mt-3">
+              <div className="mb-1 flex justify-between text-xs">
                 <span style={{ color: it.color }}>{it.progress}%</span>
                 <span className="text-muted-foreground">{it.lessons}</span>
               </div>
-              <div className="h-1 overflow-hidden rounded-full bg-background sm:h-1.5">
+              <div className="h-1.5 overflow-hidden rounded-full bg-background">
                 <div className="h-full rounded-full transition-all duration-700" style={{ width: `${it.progress}%`, backgroundColor: it.color }} />
               </div>
             </div>

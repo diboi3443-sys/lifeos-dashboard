@@ -141,19 +141,19 @@ export default function ProjectsPage() {
             exit="exit"
             className="flex flex-col h-full overflow-hidden"
         >
-            <div className="flex items-center justify-between mb-8 shrink-0">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 md:mb-8 shrink-0">
                 <div>
-                    <h1 className="text-3xl font-black mb-1 flex items-center gap-3">
+                    <h1 className="text-2xl md:text-3xl font-black mb-1 flex items-center gap-3">
                         <span className="gradient-text">Проекты</span>
                     </h1>
-                    <p className="text-white/40">Управление рабочими задачами и дисциплиной</p>
+                    <p className="text-white/40 text-sm">Управление рабочими задачами и дисциплиной</p>
                 </div>
                 <button
                     onClick={() => {
                         setNewTaskStatus('todo');
                         setIsModalOpen(true);
                     }}
-                    className="bg-white text-black px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-white/90 transition-colors"
+                    className="bg-white text-black px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-white/90 transition-colors shrink-0 self-start sm:self-auto"
                 >
                     + Создать задачу
                 </button>

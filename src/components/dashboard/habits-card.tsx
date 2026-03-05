@@ -19,39 +19,39 @@ export function HabitsCard() {
   const doneCount = habits.filter((h) => h.done).length
 
   return (
-    <div className="flex flex-col rounded-2xl border border-border bg-card p-4 sm:p-5 lg:col-span-1">
-      <div className="mb-3 flex items-center justify-between sm:mb-4">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-c-emerald/10 sm:h-11 sm:w-11">
-            <Repeat className="h-5 w-5 text-c-emerald sm:h-6 sm:w-6" />
+    <div className="flex flex-col rounded-2xl border border-border bg-card p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-c-emerald/10">
+            <Repeat className="h-5 w-5 text-c-emerald" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground">Привычки</h3>
-            <p className="text-[11px] text-muted-foreground">{doneCount}/{habits.length} сегодня</p>
+            <p className="text-xs text-muted-foreground">{doneCount}/{habits.length} сегодня</p>
           </div>
         </div>
       </div>
 
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         {habits.map((h) => {
           const pct = Math.min((h.cur / h.max) * 100, 100)
           return (
             <button
               key={h.id}
               onClick={() => toggle(h.id)}
-              className={`group flex items-center gap-2.5 rounded-xl border px-3 py-2 transition-colors sm:gap-3 sm:py-2.5 ${
+              className={`group flex items-center gap-3 rounded-xl border px-3.5 py-3 transition-colors active:scale-[0.98] ${
                 h.done ? "border-c-emerald/15 bg-c-emerald/[0.04]" : "border-border bg-secondary hover:bg-muted"
               }`}
             >
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg sm:h-10 sm:w-10" style={{ backgroundColor: `${h.color}15` }}>
-                {h.done ? <Check className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: h.color }} /> : <h.icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: `${h.color}90` }} />}
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg" style={{ backgroundColor: `${h.color}15` }}>
+                {h.done ? <Check className="h-5 w-5" style={{ color: h.color }} /> : <h.icon className="h-5 w-5" style={{ color: `${h.color}90` }} />}
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between">
-                  <span className={`text-xs font-medium ${h.done ? "text-muted-foreground" : "text-foreground"}`}>{h.name}</span>
-                  <span className="text-[10px] tabular-nums text-muted-foreground">{h.cur}/{h.max} {h.unit}</span>
+                  <span className={`text-sm font-medium ${h.done ? "text-muted-foreground" : "text-foreground"}`}>{h.name}</span>
+                  <span className="text-xs tabular-nums text-muted-foreground">{h.cur}/{h.max} {h.unit}</span>
                 </div>
-                <div className="mt-1 h-1 overflow-hidden rounded-full bg-background sm:mt-1.5 sm:h-1.5">
+                <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-background">
                   <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, backgroundColor: h.color, opacity: h.done ? 0.6 : 0.8 }} />
                 </div>
               </div>

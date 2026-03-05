@@ -102,9 +102,10 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* Main content - responsive padding */}
-            <main className="flex-1 min-w-0 w-full h-screen flex flex-col
-                pt-16 pb-20 px-4
+            {/* Main content */}
+            <main className="flex-1 min-w-0 w-full min-h-screen flex flex-col
+                pt-[60px] pb-[72px] px-3
+                sm:px-4
                 md:pt-0 md:pb-0 md:px-6 md:ml-[260px]
                 lg:px-8
             ">

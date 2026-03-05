@@ -95,7 +95,7 @@ export default function FinancePage() {
                 <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                     📈 Бюджет месяца
                 </h3>
-                <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-4">
                     <div>
                         <label className="text-xs text-white/40 block mb-1">Доход за месяц (₽)</label>
                         <input type="number" value={budget.income || ''}
@@ -109,7 +109,7 @@ export default function FinancePage() {
                             className={inputClass} />
                     </div>
                 </div>
-                <div className="grid grid-cols-3 gap-4 mb-4">
+                <div className="grid grid-cols-3 gap-2 md:gap-4 mb-4">
                     <div>
                         <label className="text-xs text-white/40 flex items-center gap-1 mb-1">💎 Накопления %</label>
                         <input type="number" value={budget.pctSave} min={0} max={100}
@@ -132,28 +132,28 @@ export default function FinancePage() {
 
                 {/* Overview */}
                 {budget.income > 0 && (
-                    <div className="grid grid-cols-4 gap-3 p-4 rounded-xl border border-white/5" style={{ background: 'rgba(255,255,255,0.02)' }}>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-3 md:p-4 rounded-xl border border-white/5" style={{ background: 'rgba(255,255,255,0.02)' }}>
                         <div className="text-center">
-                            <div className="text-xs text-white/30 mb-1">Накопления</div>
-                            <div className="text-lg font-bold text-green-400">{fmt(saveAmount)}</div>
+                            <div className="text-[10px] md:text-xs text-white/30 mb-1">Накопления</div>
+                            <div className="text-sm md:text-lg font-bold text-green-400">{fmt(saveAmount)}</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-xs text-white/30 mb-1">Развитие</div>
-                            <div className="text-lg font-bold text-blue-400">{fmt(investAmount)}</div>
+                            <div className="text-[10px] md:text-xs text-white/30 mb-1">Развитие</div>
+                            <div className="text-sm md:text-lg font-bold text-blue-400">{fmt(investAmount)}</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-xs text-white/30 mb-1">На жизнь</div>
-                            <div className="text-lg font-bold text-yellow-400">{fmt(freeAmount)}</div>
+                            <div className="text-[10px] md:text-xs text-white/30 mb-1">На жизнь</div>
+                            <div className="text-sm md:text-lg font-bold text-yellow-400">{fmt(freeAmount)}</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-xs text-white/30 mb-1">Лимит/день</div>
-                            <div className="text-lg font-bold text-white">{fmt(dailyLimit)}</div>
+                            <div className="text-[10px] md:text-xs text-white/30 mb-1">Лимит/день</div>
+                            <div className="text-sm md:text-lg font-bold text-white">{fmt(dailyLimit)}</div>
                         </div>
                     </div>
                 )}
             </GlassCard>
 
-            <div className="grid grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
                 {/* Fixed Expenses */}
                 <GlassCard>
                     <h3 className="text-sm font-bold text-white/60 mb-3 flex items-center gap-2">
@@ -239,7 +239,7 @@ export default function FinancePage() {
                 <h3 className="text-sm font-bold text-white/60 mb-3 flex items-center gap-2">
                     🧾 Записать расход
                 </h3>
-                <div className="grid grid-cols-[2fr_1fr_1fr_auto] gap-3 mb-4 items-end">
+                <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr_1fr_auto] gap-3 mb-4 items-end">
                     <div>
                         <label className="text-xs text-white/40 block mb-1">Описание</label>
                         <input value={newExpense.desc} onChange={e => setNewExpense(p => ({ ...p, desc: e.target.value }))} placeholder="Кофе" className={inputClass} />

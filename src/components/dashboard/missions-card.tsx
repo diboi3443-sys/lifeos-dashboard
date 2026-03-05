@@ -23,74 +23,72 @@ export function MissionsCard({ mission, completedTasks, onToggleTask }: Missions
 
   const renderTaskIcon = (type: string) => {
     const cfg = TASK_ICONS[type];
-    if (!cfg) return <Circle className="w-4 h-4 text-muted-foreground/30 sm:w-5 sm:h-5" />;
+    if (!cfg) return <Circle className="w-5 h-5 text-muted-foreground/30" />;
     const Icon = cfg.icon;
     return (
-      <div
-        className="flex h-6 w-6 items-center justify-center rounded-md shrink-0 sm:h-7 sm:w-7"
-        style={{ background: `${cfg.color}15` }}
-      >
-        <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" style={{ color: cfg.color }} />
+      <div className="flex h-7 w-7 items-center justify-center rounded-lg shrink-0" style={{ background: `${cfg.color}15` }}>
+        <Icon className="w-4 h-4" style={{ color: cfg.color }} />
       </div>
     );
   };
 
   return (
-    <div className="flex flex-col rounded-2xl border border-border bg-card p-4 sm:p-5 sm:col-span-2 lg:col-span-1 lg:row-span-2">
-      <div className="mb-3 flex items-center justify-between sm:mb-4">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-c-amber/10 sm:h-11 sm:w-11">
-            <Crosshair className="h-5 w-5 text-c-amber sm:h-6 sm:w-6" />
+    <div className="flex flex-col rounded-2xl border border-border bg-card p-5 h-full">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-c-amber/10">
+            <Crosshair className="h-5 w-5 text-c-amber" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground">Миссии (День {mission.day})</h3>
-            <p className="text-[11px] text-muted-foreground">{done}/{mission.tasks.length} выполнено</p>
+            <p className="text-xs text-muted-foreground">{done}/{mission.tasks.length} выполнено</p>
           </div>
         </div>
       </div>
 
       {/* Progress summary */}
-      <div className="mb-3 rounded-xl border border-border bg-secondary p-3 sm:mb-4">
-        <div className="mb-2 flex items-center justify-between text-xs">
+      <div className="mb-4 rounded-xl border border-border bg-secondary p-3.5">
+        <div className="mb-2 flex items-center justify-between text-sm">
           <span className="text-muted-foreground">Прогресс</span>
           <span className="font-semibold text-c-emerald">+{earnedXP} XP</span>
         </div>
-        <div className="h-1.5 overflow-hidden rounded-full bg-background sm:h-2">
+        <div className="h-2 overflow-hidden rounded-full bg-background">
           <div
             className="h-full rounded-full bg-gradient-to-r from-c-emerald to-primary transition-all duration-700"
             style={{ width: `${totalXP > 0 ? (earnedXP / totalXP) * 100 : 0}%` }}
           />
         </div>
-        <p className="mt-1.5 text-[10px] text-muted-foreground sm:text-[11px]">{earnedXP} / {totalXP} XP</p>
+        <p className="mt-1.5 text-xs text-muted-foreground">{earnedXP} / {totalXP} XP</p>
       </div>
 
       {/* Task list */}
-      <div className="flex flex-1 flex-col gap-1.5 overflow-y-auto scrollbar-hide max-h-[300px] sm:max-h-none">
+      <div className="flex flex-1 flex-col gap-2 overflow-y-auto scrollbar-hide">
         {mission.tasks.map((m, idx) => {
           const isCompleted = completedTasks.includes(idx);
           return (
             <button
               key={idx}
               onClick={() => onToggleTask(idx)}
-              className={`group flex items-center gap-2.5 rounded-xl border px-3 py-2 text-left transition-colors sm:gap-3 sm:py-2.5 ${isCompleted
+              className={`group flex items-center gap-3 rounded-xl border px-3.5 py-3 text-left transition-colors active:scale-[0.98] ${
+                isCompleted
                   ? "border-c-emerald/15 bg-c-emerald/[0.04]"
                   : "border-border bg-secondary hover:bg-muted"
-                }`}
+              }`}
             >
               {isCompleted ? (
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-c-emerald" />
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-c-emerald" />
               ) : (
-                <Circle className="h-4 w-4 shrink-0 text-muted-foreground/30" />
+                <Circle className="h-5 w-5 shrink-0 text-muted-foreground/30" />
               )}
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5 mb-0.5">
                   {renderTaskIcon(m.type)}
-                  <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground/50 sm:text-[10px]">{m.type}</span>
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/50">{m.type}</span>
                 </div>
-                <p className={`truncate text-xs sm:text-sm ${isCompleted ? "text-muted-foreground line-through" : "text-foreground/80"}`}>{m.title}</p>
+                <p className={`text-sm leading-snug ${isCompleted ? "text-muted-foreground line-through" : "text-foreground/80"}`}>{m.title}</p>
               </div>
-              <span className={`flex items-center gap-0.5 text-[11px] font-semibold shrink-0 sm:text-xs ${isCompleted ? "text-muted-foreground/40" : "text-primary"}`}>
-                <Zap className="h-2.5 w-2.5 sm:h-3 sm:w-3" />{m.points}
+              <span className={`flex items-center gap-0.5 text-xs font-semibold shrink-0 ${isCompleted ? "text-muted-foreground/40" : "text-primary"}`}>
+                <Zap className="h-3 w-3" />{m.points}
               </span>
             </button>
           );

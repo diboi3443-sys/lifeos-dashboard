@@ -115,26 +115,26 @@ export default function TrackerPage() {
             exit={{ opacity: 0, y: -20 }}
         >
             {/* Date navigation */}
-            <motion.div variants={itemVariants} className="flex items-center gap-4 mb-6">
-                <button onClick={() => changeDate(-1)} className="w-9 h-9 rounded-lg flex items-center justify-center bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+            <motion.div variants={itemVariants} className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
+                <button onClick={() => changeDate(-1)} className="w-9 h-9 rounded-lg flex items-center justify-center bg-white/5 border border-white/10 hover:bg-white/10 transition-colors shrink-0">
                     <ChevronLeft className="w-5 h-5 text-white/60" />
                 </button>
-                <div className="text-center flex-1">
-                    <h2 className="text-xl font-bold">{formatDateRu(currentDate)}</h2>
-                    <p className="text-white/30 text-sm">{isToday ? 'Сегодня' : dateKey}</p>
+                <div className="text-center flex-1 min-w-0">
+                    <h2 className="text-lg md:text-xl font-bold truncate">{formatDateRu(currentDate)}</h2>
+                    <p className="text-white/30 text-xs md:text-sm">{isToday ? 'Сегодня' : dateKey}</p>
                 </div>
-                <button onClick={() => changeDate(1)} className="w-9 h-9 rounded-lg flex items-center justify-center bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                <button onClick={() => changeDate(1)} className="w-9 h-9 rounded-lg flex items-center justify-center bg-white/5 border border-white/10 hover:bg-white/10 transition-colors shrink-0">
                     <ChevronRight className="w-5 h-5 text-white/60" />
                 </button>
                 {!isToday && (
                     <button onClick={goToday}
-                        className="px-3 py-1.5 text-xs rounded-lg bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors">
+                        className="px-3 py-1.5 text-xs rounded-lg bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 transition-colors shrink-0">
                         Сегодня
                     </button>
                 )}
             </motion.div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 {/* LEFT: Habits */}
                 <motion.div variants={itemVariants}>
                     <GlassCard>

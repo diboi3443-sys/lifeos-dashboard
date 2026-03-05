@@ -91,7 +91,7 @@ export default function PhysicalPage() {
             </div>
             <span className="gradient-text align-middle">Физика</span>
 
-            <div className="grid grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
                 {/* Body Measurements */}
                 <GlassCard>
                     <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
@@ -175,7 +175,7 @@ export default function PhysicalPage() {
                 <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                     <span className="text-white/50 text-xl">✍️</span> Добавить тренировку
                 </h3>
-                <div className="grid grid-cols-6 gap-3 items-end">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 items-end">
                     <div>
                         <label className="text-xs text-white/40 block mb-1">Дата</label>
                         <input type="date" value={newWorkout.date} onChange={e => setNewWorkout(p => ({ ...p, date: e.target.value }))} className={inputClass} />

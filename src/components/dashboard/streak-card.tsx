@@ -28,36 +28,37 @@ function heatColor(n: number) {
 
 export function StreakCard({ streak = 0 }: { streak?: number }) {
   return (
-    <div className="col-span-1 rounded-2xl border border-border bg-card p-4 sm:p-5 sm:col-span-2 lg:col-span-3">
-      <div className="mb-4 flex items-center justify-between sm:mb-5">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-c-amber/10 sm:h-11 sm:w-11">
-            <Flame className="h-5 w-5 text-c-amber sm:h-6 sm:w-6" />
+    <div className="rounded-2xl border border-border bg-card p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-c-amber/10">
+            <Flame className="h-5 w-5 text-c-amber" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground">Серия активности</h3>
-            <p className="text-[11px] text-muted-foreground">Непрерывная полоса</p>
+            <p className="text-xs text-muted-foreground">Непрерывная полоса</p>
           </div>
         </div>
-        <div className="flex items-center gap-1.5 rounded-lg border border-c-amber/20 bg-c-amber/5 px-2.5 py-1 sm:px-3 sm:py-1.5">
-          <Flame className="h-3 w-3 text-c-amber sm:h-3.5 sm:w-3.5" />
-          <span className="text-[11px] font-bold text-c-amber sm:text-sm">{streak} дней</span>
+        <div className="flex items-center gap-1.5 rounded-lg border border-c-amber/20 bg-c-amber/5 px-3 py-1.5">
+          <Flame className="h-3.5 w-3.5 text-c-amber" />
+          <span className="text-sm font-bold text-c-amber">{streak} дней</span>
         </div>
       </div>
 
-      {/* Current week */}
-      <div className="mb-4 flex gap-1.5 sm:mb-5 sm:gap-2">
+      {/* Current week -- bigger cells on mobile */}
+      <div className="mb-4 flex gap-2">
         {days.map((d, i) => (
-          <div key={i} className="flex flex-1 flex-col items-center gap-1 sm:gap-1.5">
-            <span className="text-[9px] font-semibold uppercase text-muted-foreground/60 sm:text-[10px]">{d.label}</span>
+          <div key={i} className="flex flex-1 flex-col items-center gap-1.5">
+            <span className="text-[10px] font-semibold uppercase text-muted-foreground/60">{d.label}</span>
             <div
-              className={`flex h-9 w-full items-center justify-center rounded-lg border transition-colors sm:h-10 ${d.active ? "border-c-amber/15 bg-c-amber/[0.05]" : "border-border bg-secondary"
-                }`}
+              className={`flex h-11 w-full items-center justify-center rounded-xl border transition-colors ${
+                d.active ? "border-c-amber/15 bg-c-amber/[0.05]" : "border-border bg-secondary"
+              }`}
             >
               {d.active ? (
-                <Flame className="h-4 w-4 text-c-amber sm:h-5 sm:w-5" style={{ opacity: 0.3 + d.intensity * 0.23 }} />
+                <Flame className="h-5 w-5 text-c-amber" style={{ opacity: 0.3 + d.intensity * 0.23 }} />
               ) : (
-                <div className="h-1.5 w-1.5 rounded-full bg-border" />
+                <div className="h-2 w-2 rounded-full bg-border" />
               )}
             </div>
           </div>
@@ -67,31 +68,31 @@ export function StreakCard({ streak = 0 }: { streak?: number }) {
       {/* Heatmap */}
       <div className="space-y-2">
         <div className="flex items-center gap-1.5">
-          <Calendar className="h-3 w-3 text-muted-foreground" />
-          <span className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground/60 sm:text-[10px]">4 недели</span>
+          <Calendar className="h-3.5 w-3.5 text-muted-foreground" />
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">4 недели</span>
         </div>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1.5">
           {weeks.map((w, wi) => (
-            <div key={wi} className="flex gap-1">
+            <div key={wi} className="flex gap-1.5">
               {w.map((n, di) => (
-                <div key={di} className="h-4 flex-1 rounded-md transition-colors sm:h-5" style={{ backgroundColor: heatColor(n) }} />
+                <div key={di} className="h-5 flex-1 rounded-md transition-colors md:h-6" style={{ backgroundColor: heatColor(n) }} />
               ))}
             </div>
           ))}
         </div>
         <div className="flex items-center justify-between pt-1">
           <div className="flex items-center gap-1.5">
-            <Trophy className="h-3 w-3 text-muted-foreground" />
-            <span className="text-[9px] text-muted-foreground sm:text-[10px]">Рекорд: 12 дней</span>
+            <Trophy className="h-3.5 w-3.5 text-muted-foreground" />
+            <span className="text-xs text-muted-foreground">Рекорд: 12 дней</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="text-[8px] text-muted-foreground sm:text-[9px]">Мало</span>
-            <div className="flex gap-0.5">
+            <span className="text-[10px] text-muted-foreground">Мало</span>
+            <div className="flex gap-1">
               {[0, 1, 2, 3].map((n) => (
-                <div key={n} className="h-2.5 w-2.5 rounded-sm sm:h-3 sm:w-3" style={{ backgroundColor: heatColor(n) }} />
+                <div key={n} className="h-3.5 w-3.5 rounded-sm" style={{ backgroundColor: heatColor(n) }} />
               ))}
             </div>
-            <span className="text-[8px] text-muted-foreground sm:text-[9px]">Много</span>
+            <span className="text-[10px] text-muted-foreground">Много</span>
           </div>
         </div>
       </div>
