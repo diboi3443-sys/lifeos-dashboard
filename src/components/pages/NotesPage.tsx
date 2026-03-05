@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { Save } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import { useLocalStorage } from '@/lib/storage';
 
@@ -158,7 +159,7 @@ export default function NotesPage() {
                             <div className="flex gap-2">
                                 <button onClick={save} className="flex-1 py-2 rounded-lg font-semibold text-sm text-white flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
                                     style={{ background: 'var(--gradient-primary)' }}>
-                                    <img src="/icons/save_submit_button_pill.jpg" className="w-6 h-6 rounded-full object-cover mix-blend-screen" alt="Save" />
+                                    <Save className="w-5 h-5" />
                                     <span>Сохранить заметку</span>
                                 </button>
                                 <button onClick={() => { setText(''); setPage(''); setComment(''); }}

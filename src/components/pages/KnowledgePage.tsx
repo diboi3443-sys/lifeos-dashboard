@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { GraduationCap } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 
 const KB_SECTIONS = [
@@ -253,8 +254,8 @@ export default function KnowledgePage() {
             exit={{ opacity: 0, y: -20 }}
         >
             <h1 className="text-2xl font-black mb-6 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg overflow-hidden border border-purple-500/30 shadow-[0_0_15px_rgba(139,92,246,0.3)]">
-                    <img src="/icons/Knowledge (Sidebar Icon).jpg" alt="Knowledge" className="w-full h-full object-cover transform scale-125" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-purple-500/10 border border-purple-500/30">
+                    <GraduationCap className="w-5 h-5 text-purple-400" />
                 </div>
                 <span className="gradient-text">База знаний</span>
             </h1>

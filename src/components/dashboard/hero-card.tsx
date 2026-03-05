@@ -19,7 +19,7 @@ export function HeroCard({ level, xp, maxXp }: { level: number; xp: number; maxX
           <PhotoAvatar size={160} className="hidden md:block" />
           <PhotoAvatar size={120} className="block md:hidden" />
           <div className="absolute -bottom-2 -right-2 flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-1.5 shadow-lg z-10">
-            <Crown className="h-3.5 w-3.5 text-c-amber" />
+            <Crown className="h-4 w-4 text-c-amber sm:h-5 sm:w-5" />
             <span className="text-sm font-bold text-primary">LVL {level}</span>
           </div>
         </div>
@@ -35,7 +35,7 @@ export function HeroCard({ level, xp, maxXp }: { level: number; xp: number; maxX
               <span className="text-primary">Кибервоин</span>
             </h2>
             <div className="mt-1 flex items-center justify-center gap-1.5 md:justify-start">
-              <Shield className="h-3.5 w-3.5 text-muted-foreground" />
+              <Shield className="h-4 w-4 text-muted-foreground sm:h-5 sm:w-5" />
               <p className="text-xs text-muted-foreground sm:text-sm">Путь мастера дисциплины и знаний</p>
             </div>
           </div>
@@ -44,7 +44,7 @@ export function HeroCard({ level, xp, maxXp }: { level: number; xp: number; maxX
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Zap className="h-3.5 w-3.5 text-c-amber" />
+                <Zap className="h-4 w-4 text-c-amber sm:h-5 sm:w-5" />
                 <span className="text-xs text-muted-foreground sm:text-sm">Опыт</span>
               </div>
               <div className="flex items-baseline gap-1">
@@ -71,7 +71,7 @@ export function HeroCard({ level, xp, maxXp }: { level: number; xp: number; maxX
               { icon: Star, label: "Ранг B+", color: "text-c-violet" },
             ].map((b) => (
               <div key={b.label} className="flex items-center gap-1.5 rounded-lg border border-border bg-secondary px-2.5 py-1.5 sm:px-3">
-                <b.icon className={`h-3 w-3 sm:h-3.5 sm:w-3.5 ${b.color}`} />
+                <b.icon className={`h-4 w-4 sm:h-5 sm:w-5 ${b.color}`} />
                 <span className="text-[11px] font-medium text-muted-foreground sm:text-xs">{b.label}</span>
               </div>
             ))}

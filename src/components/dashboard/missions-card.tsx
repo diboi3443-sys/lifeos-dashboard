@@ -1,6 +1,6 @@
 "use client"
 
-import { Crosshair, Zap, CheckCircle2, Circle } from "lucide-react"
+import { Crosshair, Zap, CheckCircle2, Circle, Play, FileText, Rocket, Brain } from "lucide-react"
 import type { DayData } from "@/data/30_day_data"
 
 interface MissionsCardProps {
@@ -9,32 +9,38 @@ interface MissionsCardProps {
   onToggleTask: (idx: number) => void;
 }
 
+const TASK_ICONS: Record<string, { icon: typeof Play; color: string }> = {
+  video: { icon: Play, color: '#ef4444' },
+  article: { icon: FileText, color: '#3b82f6' },
+  action: { icon: Rocket, color: '#22c55e' },
+  reflection: { icon: Brain, color: '#8b5cf6' },
+};
+
 export function MissionsCard({ mission, completedTasks, onToggleTask }: MissionsCardProps) {
   const done = completedTasks.length;
   const totalXP = mission.tasks.reduce((s, m) => s + m.points, 0);
   const earnedXP = mission.tasks.reduce((s, m, idx) => s + (completedTasks.includes(idx) ? m.points : 0), 0);
 
   const renderTaskIcon = (type: string) => {
-    switch (type) {
-      case 'video':
-        return <img src="/icons/video_content_icon.jpg" alt="Video" className="w-4 h-4 object-cover rounded shadow-sm sm:w-5 sm:h-5" />;
-      case 'article':
-        return <img src="/icons/article_reading_icon.jpg" alt="Article" className="w-4 h-4 object-cover rounded shadow-sm sm:w-5 sm:h-5" />;
-      case 'action':
-        return <img src="/icons/action_task_icon.jpg" alt="Action" className="w-4 h-4 object-cover rounded shadow-sm sm:w-5 sm:h-5" />;
-      case 'reflection':
-        return <img src="/icons/reflection_mindset_icon.jpg" alt="Reflection" className="w-4 h-4 object-cover rounded shadow-sm sm:w-5 sm:h-5" />;
-      default:
-        return <Circle className="w-4 h-4 text-muted-foreground/30 sm:w-5 sm:h-5" />;
-    }
+    const cfg = TASK_ICONS[type];
+    if (!cfg) return <Circle className="w-4 h-4 text-muted-foreground/30 sm:w-5 sm:h-5" />;
+    const Icon = cfg.icon;
+    return (
+      <div
+        className="flex h-6 w-6 items-center justify-center rounded-md shrink-0 sm:h-7 sm:w-7"
+        style={{ background: `${cfg.color}15` }}
+      >
+        <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" style={{ color: cfg.color }} />
+      </div>
+    );
   };
 
   return (
     <div className="flex flex-col rounded-2xl border border-border bg-card p-4 sm:p-5 sm:col-span-2 lg:col-span-1 lg:row-span-2">
       <div className="mb-3 flex items-center justify-between sm:mb-4">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-c-amber/10">
-            <Crosshair className="h-4 w-4 text-c-amber" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-c-amber/10 sm:h-11 sm:w-11">
+            <Crosshair className="h-5 w-5 text-c-amber sm:h-6 sm:w-6" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground">Миссии (День {mission.day})</h3>

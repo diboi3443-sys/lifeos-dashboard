@@ -22,8 +22,8 @@ export function HabitsCard() {
     <div className="flex flex-col rounded-2xl border border-border bg-card p-4 sm:p-5 lg:col-span-1">
       <div className="mb-3 flex items-center justify-between sm:mb-4">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-c-emerald/10">
-            <Repeat className="h-4 w-4 text-c-emerald" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-c-emerald/10 sm:h-11 sm:w-11">
+            <Repeat className="h-5 w-5 text-c-emerald sm:h-6 sm:w-6" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground">Привычки</h3>
@@ -43,8 +43,8 @@ export function HabitsCard() {
                 h.done ? "border-c-emerald/15 bg-c-emerald/[0.04]" : "border-border bg-secondary hover:bg-muted"
               }`}
             >
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg sm:h-8 sm:w-8" style={{ backgroundColor: `${h.color}10` }}>
-                {h.done ? <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" style={{ color: h.color }} /> : <h.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" style={{ color: `${h.color}80` }} />}
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg sm:h-10 sm:w-10" style={{ backgroundColor: `${h.color}15` }}>
+                {h.done ? <Check className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: h.color }} /> : <h.icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: `${h.color}90` }} />}
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between">

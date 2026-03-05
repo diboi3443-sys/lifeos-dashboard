@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { Wallet, Plus, Trash2 } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import { useLocalStorage } from '@/lib/storage';
 
@@ -83,8 +84,8 @@ export default function FinancePage() {
             exit={{ opacity: 0, y: -20 }}
         >
             <h1 className="text-2xl font-black mb-6 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg overflow-hidden border border-yellow-500/30 shadow-[0_0_15px_rgba(234,179,8,0.3)]">
-                    <img src="/icons/Finance (Sidebar Icon).jpg" alt="Finance" className="w-full h-full object-cover transform scale-125" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-yellow-500/10 border border-yellow-500/30">
+                    <Wallet className="w-5 h-5 text-yellow-400" />
                 </div>
                 <span className="gradient-text">Финансы</span>
             </h1>
@@ -181,8 +182,8 @@ export default function FinancePage() {
                     <div className="grid grid-cols-[2fr_1fr_auto] gap-2">
                         <input value={newFixed.name} onChange={e => setNewFixed(p => ({ ...p, name: e.target.value }))} placeholder="Квартира" className={inputClass} />
                         <input value={newFixed.amount} onChange={e => setNewFixed(p => ({ ...p, amount: e.target.value }))} placeholder="45000" className={inputClass} />
-                        <button onClick={addFixed} className="w-10 h-10 rounded-full overflow-hidden hover:opacity-80 transition-opacity shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-                            <img src="/icons/add_plus_button_circular.jpg" className="w-full h-full object-cover" alt="Add" />
+                        <button onClick={addFixed} className="w-10 h-10 rounded-xl flex items-center justify-center bg-blue-500/10 border border-blue-500/30 hover:bg-blue-500/20 transition-colors shrink-0">
+                            <Plus className="w-5 h-5 text-blue-400" />
                         </button>
                     </div>
                 </GlassCard>
@@ -198,8 +199,8 @@ export default function FinancePage() {
                                 <div className="flex items-center justify-between mb-1">
                                     <span className="text-sm text-white/70 font-medium">{g.name}</span>
                                     <button onClick={() => setGoals(p => p.filter(x => x.id !== g.id))}
-                                        className="w-5 h-5 rounded-full overflow-hidden hover:opacity-80 transition-opacity shadow-[0_0_10px_rgba(239,68,68,0.2)]">
-                                        <img src="/icons/delete_remove_button.jpg" className="w-full h-full object-cover" alt="Delete" />
+                                        className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-red-500/20 transition-colors">
+                                        <Trash2 className="w-4 h-4 text-white/30 hover:text-red-400" />
                                     </button>
                                 </div>
                                 <div className="flex items-center justify-between text-xs text-white/40 mb-1">
@@ -226,8 +227,8 @@ export default function FinancePage() {
                     <div className="grid grid-cols-[2fr_1fr_auto] gap-2">
                         <input value={newGoal.name} onChange={e => setNewGoal(p => ({ ...p, name: e.target.value }))} placeholder="MacBook" className={inputClass} />
                         <input value={newGoal.target} onChange={e => setNewGoal(p => ({ ...p, target: e.target.value }))} placeholder="200000" className={inputClass} />
-                        <button onClick={addGoalFn} className="w-10 h-10 rounded-full overflow-hidden hover:opacity-80 transition-opacity shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-                            <img src="/icons/add_plus_button_circular.jpg" className="w-full h-full object-cover" alt="Add" />
+                        <button onClick={addGoalFn} className="w-10 h-10 rounded-xl flex items-center justify-center bg-blue-500/10 border border-blue-500/30 hover:bg-blue-500/20 transition-colors shrink-0">
+                            <Plus className="w-5 h-5 text-blue-400" />
                         </button>
                     </div>
                 </GlassCard>
@@ -253,8 +254,8 @@ export default function FinancePage() {
                             {CATEGORIES.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
                         </select>
                     </div>
-                    <button onClick={addExpense} className="w-10 h-10 rounded-full overflow-hidden hover:opacity-80 transition-opacity shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-                        <img src="/icons/add_plus_button_circular.jpg" className="w-full h-full object-cover" alt="Add" />
+                    <button onClick={addExpense} className="w-10 h-10 rounded-xl flex items-center justify-center bg-blue-500/10 border border-blue-500/30 hover:bg-blue-500/20 transition-colors shrink-0">
+                        <Plus className="w-5 h-5 text-blue-400" />
                     </button>
                 </div>
 

@@ -32,8 +32,8 @@ export function NutritionCard() {
         <div className="flex flex-col rounded-2xl border border-border bg-card p-4 sm:p-5 lg:col-span-1">
             <div className="mb-3 flex items-center justify-between sm:mb-4">
                 <div className="flex items-center gap-2.5">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-c-emerald/10">
-                        <Utensils className="h-4 w-4 text-c-emerald" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-c-emerald/10 sm:h-11 sm:w-11">
+                        <Utensils className="h-5 w-5 text-c-emerald sm:h-6 sm:w-6" />
                     </div>
                     <div>
                         <h3 className="text-sm font-semibold text-foreground">Питание</h3>

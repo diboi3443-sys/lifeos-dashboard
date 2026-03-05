@@ -13,8 +13,8 @@ export function KnowledgeCard() {
     <div className="col-span-1 rounded-2xl border border-border bg-card p-4 sm:p-5 sm:col-span-2 lg:col-span-4">
       <div className="mb-4 flex items-center justify-between sm:mb-5">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-            <GraduationCap className="h-4 w-4 text-primary" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 sm:h-11 sm:w-11">
+            <GraduationCap className="h-5 w-5 text-primary sm:h-6 sm:w-6" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground">Обучение</h3>
@@ -28,8 +28,8 @@ export function KnowledgeCard() {
         {items.map((it) => (
           <div key={it.title} className="group rounded-xl border border-border bg-secondary p-3.5 transition-colors hover:bg-muted sm:p-4">
             <div className="mb-3 flex items-center justify-between">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg sm:h-10 sm:w-10" style={{ backgroundColor: `${it.color}10` }}>
-                <it.icon className="h-4 w-4 sm:h-4.5 sm:w-4.5" style={{ color: it.color }} />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl sm:h-11 sm:w-11" style={{ backgroundColor: `${it.color}15` }}>
+                <it.icon className="h-5 w-5 sm:h-6 sm:w-6" style={{ color: it.color }} />
               </div>
               <button className="flex h-7 w-7 items-center justify-center rounded-lg border border-border opacity-60 transition-all hover:opacity-100 hover:bg-card sm:h-8 sm:w-8 sm:opacity-0 sm:group-hover:opacity-100">
                 <Play className="h-3 w-3 text-muted-foreground" />

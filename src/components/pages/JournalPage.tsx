@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { BookOpen } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import { useLocalStorage } from '@/lib/storage';
 
@@ -86,8 +87,8 @@ export default function JournalPage() {
             exit={{ opacity: 0, y: -20 }}
         >
             <h1 className="text-2xl font-black mb-6 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg overflow-hidden border border-blue-500/30 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
-                    <img src="/icons/Journal (Sidebar Icon).jpg" alt="Journal" className="w-full h-full object-cover transform scale-[1.2]" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-blue-500/10 border border-blue-500/30">
+                    <BookOpen className="w-5 h-5 text-blue-400" />
                 </div>
                 <span className="gradient-text">Журнал</span>
             </h1>

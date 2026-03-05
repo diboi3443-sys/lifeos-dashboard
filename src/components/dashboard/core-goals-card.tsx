@@ -38,8 +38,8 @@ export function CoreGoalsCard() {
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-5 relative z-10">
                 <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-c-violet/20 to-c-sky/20 border border-border shrink-0 sm:h-10 sm:w-10">
-                        <Target className="h-4 w-4 text-c-sky sm:h-5 sm:w-5" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-c-violet/20 to-c-sky/20 border border-border shrink-0 sm:h-12 sm:w-12">
+                        <Target className="h-5 w-5 text-c-sky sm:h-6 sm:w-6" />
                     </div>
                     <div>
                         <h3 className="text-sm font-bold text-foreground sm:text-base">Главные ориентиры</h3>
@@ -81,7 +81,7 @@ export function CoreGoalsCard() {
                 {/* Goal 1 */}
                 <div className="p-3 rounded-xl border border-border bg-secondary flex flex-col sm:p-4">
                     <div className="flex items-center gap-2 mb-2 sm:mb-3">
-                        <Crown className="w-3.5 h-3.5 text-c-emerald sm:w-4 sm:h-4" />
+                        <Crown className="w-4 h-4 text-c-emerald sm:w-5 sm:h-5" />
                         <h4 className="text-xs font-semibold text-foreground/90 sm:text-sm">1. Что иметь?</h4>
                     </div>
                     {isEditing ? (
@@ -101,7 +101,7 @@ export function CoreGoalsCard() {
                 {/* Goal 2 */}
                 <div className="p-3 rounded-xl border border-border bg-secondary flex flex-col sm:p-4">
                     <div className="flex items-center gap-2 mb-2 sm:mb-3">
-                        <Star className="w-3.5 h-3.5 text-c-sky sm:w-4 sm:h-4" />
+                        <Star className="w-4 h-4 text-c-sky sm:w-5 sm:h-5" />
                         <h4 className="text-xs font-semibold text-foreground/90 sm:text-sm">2. Кем быть?</h4>
                     </div>
                     {isEditing ? (
@@ -121,7 +121,7 @@ export function CoreGoalsCard() {
                 {/* Goal 3 */}
                 <div className="p-3 rounded-xl border border-border bg-secondary flex flex-col sm:p-4">
                     <div className="flex items-center gap-2 mb-2 sm:mb-3">
-                        <Zap className="w-3.5 h-3.5 text-c-rose sm:w-4 sm:h-4" />
+                        <Zap className="w-4 h-4 text-c-rose sm:w-5 sm:h-5" />
                         <h4 className="text-xs font-semibold text-foreground/90 sm:text-sm">3. Чем заниматься?</h4>
                     </div>
                     {isEditing ? (

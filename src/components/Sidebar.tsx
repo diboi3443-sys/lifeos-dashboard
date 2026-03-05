@@ -2,19 +2,24 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronLeft, Settings, LogOut } from 'lucide-react';
+import {
+    Menu, X, ChevronLeft, Settings, LogOut, Flame,
+    LayoutDashboard, ListChecks, BookOpen, Dumbbell,
+    GraduationCap, StickyNote, Rocket, FolderKanban,
+    Wallet, Utensils,
+} from 'lucide-react';
 
 const NAV_ITEMS = [
-    { id: 'dashboard', label: 'Дашборд', imgSrc: '/icons/dashboard_sidebar_icon.jpg' },
-    { id: 'tracker', label: 'Трекер', imgSrc: '/icons/tracker_sidebar_icon.jpg' },
-    { id: 'journal', label: 'Журнал', imgSrc: '/icons/journal_sidebar_icon.jpg' },
-    { id: 'physical', label: 'Физика', imgSrc: '/icons/physical_sidebar_icon.jpg' },
-    { id: 'knowledge', label: 'База знаний', imgSrc: '/icons/knowledge_sidebar_icon.jpg' },
-    { id: 'notes', label: 'Заметки', imgSrc: '/icons/notes_sidebar_icon.jpg' },
-    { id: 'program', label: 'Программа', imgSrc: '/icons/program_sidebar_icon.jpg' },
-    { id: 'projects', label: 'Проекты', imgSrc: '/icons/projects_sidebar_icon.jpg' },
-    { id: 'finance', label: 'Финансы', imgSrc: '/icons/finance_sidebar_icon.jpg' },
-    { id: 'nutrition', label: 'Питание', imgSrc: '/icons/physical_sidebar_icon.jpg' },
+    { id: 'dashboard', label: 'Дашборд', icon: LayoutDashboard, color: '#6366f1' },
+    { id: 'tracker', label: 'Трекер', icon: ListChecks, color: '#10b981' },
+    { id: 'journal', label: 'Журнал', icon: BookOpen, color: '#f59e0b' },
+    { id: 'physical', label: 'Физика', icon: Dumbbell, color: '#ef4444' },
+    { id: 'knowledge', label: 'База знаний', icon: GraduationCap, color: '#8b5cf6' },
+    { id: 'notes', label: 'Заметки', icon: StickyNote, color: '#38bdf8' },
+    { id: 'program', label: 'Программа', icon: Rocket, color: '#f97316' },
+    { id: 'projects', label: 'Проекты', icon: FolderKanban, color: '#22c55e' },
+    { id: 'finance', label: 'Финансы', icon: Wallet, color: '#a855f7' },
+    { id: 'nutrition', label: 'Питание', icon: Utensils, color: '#14b8a6' },
 ];
 
 interface SidebarProps {
@@ -38,7 +43,6 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
         return () => window.removeEventListener('resize', check);
     }, []);
 
-    // Close mobile menu on navigation
     const handleNav = (page: string) => {
         onNavigate(page);
         if (isMobile) setMobileOpen(false);
@@ -58,7 +62,9 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                             exit={{ opacity: 0 }}
                             className="flex items-center gap-2.5"
                         >
-                            <img src="/logo.png" alt="LifeOS Logo" className="w-8 h-8 rounded-lg object-cover" />
+                            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 border border-primary/20">
+                                <Rocket className="w-5 h-5 text-primary" />
+                            </div>
                             <div>
                                 <span className="font-bold text-sm tracking-wider uppercase text-foreground">LifeOS</span>
                                 <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/50">v2.0 pro</p>
@@ -69,7 +75,7 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                 {isMobileDrawer ? (
                     <button
                         onClick={() => setMobileOpen(false)}
-                        className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                        className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                         aria-label="Close menu"
                     >
                         <X className="w-5 h-5" />
@@ -100,11 +106,9 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                             : 'var(--secondary)',
                     }}
                 >
-                    <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
-                        style={{ background: 'rgba(245,158,11,0.1)' }}>
-                        {streak > 0
-                            ? <img src="/icons/3d_streak_icon.jpg" alt="Streak" className="w-5 h-5 object-cover rounded shadow" />
-                            : <div className="w-5 h-5 rounded bg-border" />}
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+                        style={{ background: 'rgba(245,158,11,0.12)' }}>
+                        <Flame className="w-5 h-5 text-c-amber" />
                     </div>
                     <AnimatePresence>
                         {(!collapsed || isMobileDrawer) && (
@@ -136,6 +140,7 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                 <div className="flex flex-col gap-0.5">
                     {NAV_ITEMS.map((item) => {
                         const isActive = activePage === item.id;
+                        const Icon = item.icon;
                         return (
                             <motion.button
                                 whileTap={{ scale: 0.97 }}
@@ -145,27 +150,35 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                                     w-full flex items-center gap-3 px-3 py-2.5 rounded-xl
                                     transition-all duration-200 group relative cursor-pointer
                                     ${isActive
-                                        ? 'text-primary font-semibold'
+                                        ? 'text-foreground font-semibold'
                                         : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
                                     }
                                 `}
                                 style={isActive ? {
-                                    background: 'rgba(99,102,241,0.08)',
-                                    border: '1px solid rgba(99,102,241,0.15)',
+                                    background: `${item.color}10`,
+                                    border: `1px solid ${item.color}25`,
                                 } : { border: '1px solid transparent' }}
                             >
                                 {isActive && (
                                     <motion.div
                                         layoutId="activeTab"
-                                        className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full bg-primary"
+                                        className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-r-full"
+                                        style={{ background: item.color }}
                                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                     />
                                 )}
-                                <div className={`w-5 h-5 rounded-md overflow-hidden shrink-0 border ${isActive ? 'border-primary/30' : 'border-border'}`}>
-                                    <img
-                                        src={item.imgSrc}
-                                        alt={item.label}
-                                        className={`w-full h-full object-cover transition-all duration-200 ${isActive ? 'opacity-100' : 'opacity-50 grayscale'}`}
+                                <div
+                                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                                    style={{
+                                        background: isActive ? `${item.color}18` : 'transparent',
+                                    }}
+                                >
+                                    <Icon
+                                        className="w-[18px] h-[18px] transition-all duration-200"
+                                        style={{
+                                            color: isActive ? item.color : undefined,
+                                            opacity: isActive ? 1 : 0.5,
+                                        }}
                                     />
                                 </div>
                                 <AnimatePresence>
@@ -217,11 +230,11 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                 {(!collapsed || isMobileDrawer) && (
                     <div className="flex flex-col gap-0.5">
                         <button className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-muted-foreground/60 hover:text-muted-foreground hover:bg-secondary transition-colors text-sm">
-                            <Settings className="w-4 h-4" />
+                            <Settings className="w-[18px] h-[18px]" />
                             <span>Настройки</span>
                         </button>
                         <button className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-destructive/50 hover:text-destructive hover:bg-destructive/5 transition-colors text-sm">
-                            <LogOut className="w-4 h-4" />
+                            <LogOut className="w-[18px] h-[18px]" />
                             <span>Выйти</span>
                         </button>
                     </div>
@@ -239,20 +252,22 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
                     <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between border-b border-border bg-card/95 backdrop-blur-lg px-4 py-3">
                         <button
                             onClick={() => setMobileOpen(true)}
-                            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-secondary"
+                            className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-secondary"
                             aria-label="Open menu"
                         >
-                            <Menu className="h-4 w-4 text-muted-foreground" />
+                            <Menu className="h-5 w-5 text-muted-foreground" />
                         </button>
-                        <div className="flex items-center gap-2">
-                            <img src="/logo.png" alt="LifeOS" className="w-6 h-6 rounded-md object-cover" />
+                        <div className="flex items-center gap-2.5">
+                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 border border-primary/20">
+                                <Rocket className="w-4 h-4 text-primary" />
+                            </div>
                             <span className="text-sm font-bold tracking-tight text-foreground">
                                 Life<span className="text-primary">OS</span>
                             </span>
                         </div>
-                        <div className="flex items-center gap-1.5 rounded-lg border border-c-amber/20 bg-c-amber/5 px-2.5 py-1.5">
-                            <img src="/icons/3d_streak_icon.jpg" alt="" className="w-3.5 h-3.5 object-cover rounded" />
-                            <span className="text-[11px] font-bold tabular-nums text-c-amber">{streak}</span>
+                        <div className="flex items-center gap-2 rounded-xl border border-c-amber/20 bg-c-amber/5 px-3 py-2">
+                            <Flame className="w-4 h-4 text-c-amber" />
+                            <span className="text-xs font-bold tabular-nums text-c-amber">{streak}</span>
                         </div>
                     </header>
 
@@ -285,33 +300,42 @@ export default function Sidebar({ activePage, onNavigate, streak, level, xp, max
 
                     {/* Mobile bottom navigation (quick access) */}
                     <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 backdrop-blur-lg safe-area-bottom">
-                        <div className="flex items-center justify-around px-2 py-2">
+                        <div className="flex items-center justify-around px-1 py-1.5">
                             {NAV_ITEMS.slice(0, 5).map((item) => {
                                 const isActive = activePage === item.id;
+                                const Icon = item.icon;
                                 return (
                                     <button
                                         key={item.id}
                                         onClick={() => handleNav(item.id)}
-                                        className={`flex flex-col items-center gap-1 px-3 py-1.5 rounded-xl transition-all ${
+                                        className={`relative flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-all ${
                                             isActive
-                                                ? 'text-primary'
-                                                : 'text-muted-foreground/50'
+                                                ? 'text-foreground'
+                                                : 'text-muted-foreground/40'
                                         }`}
                                     >
-                                        <div className={`w-6 h-6 rounded-md overflow-hidden ${isActive ? 'ring-1 ring-primary/30' : ''}`}>
-                                            <img
-                                                src={item.imgSrc}
-                                                alt={item.label}
-                                                className={`w-full h-full object-cover ${isActive ? '' : 'opacity-40 grayscale'}`}
+                                        <div
+                                            className="flex h-8 w-8 items-center justify-center rounded-lg"
+                                            style={{
+                                                background: isActive ? `${item.color}15` : 'transparent',
+                                            }}
+                                        >
+                                            <Icon
+                                                className="w-5 h-5 transition-colors"
+                                                style={{ color: isActive ? item.color : undefined }}
                                             />
                                         </div>
-                                        <span className={`text-[9px] font-medium ${isActive ? 'text-primary' : 'text-muted-foreground/40'}`}>
+                                        <span
+                                            className="text-[9px] font-semibold"
+                                            style={{ color: isActive ? item.color : undefined }}
+                                        >
                                             {item.label}
                                         </span>
                                         {isActive && (
                                             <motion.div
                                                 layoutId="mobileActiveTab"
-                                                className="absolute -top-px left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full bg-primary"
+                                                className="absolute -top-px left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full"
+                                                style={{ background: item.color }}
                                             />
                                         )}
                                     </button>

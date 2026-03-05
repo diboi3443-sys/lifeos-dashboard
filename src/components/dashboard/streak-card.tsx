@@ -31,8 +31,8 @@ export function StreakCard({ streak = 0 }: { streak?: number }) {
     <div className="col-span-1 rounded-2xl border border-border bg-card p-4 sm:p-5 sm:col-span-2 lg:col-span-3">
       <div className="mb-4 flex items-center justify-between sm:mb-5">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-c-amber/10">
-            <Flame className="h-4 w-4 text-c-amber" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-c-amber/10 sm:h-11 sm:w-11">
+            <Flame className="h-5 w-5 text-c-amber sm:h-6 sm:w-6" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground">Серия активности</h3>
@@ -55,7 +55,7 @@ export function StreakCard({ streak = 0 }: { streak?: number }) {
                 }`}
             >
               {d.active ? (
-                <Flame className="h-3 w-3 text-c-amber sm:h-3.5 sm:w-3.5" style={{ opacity: 0.3 + d.intensity * 0.23 }} />
+                <Flame className="h-4 w-4 text-c-amber sm:h-5 sm:w-5" style={{ opacity: 0.3 + d.intensity * 0.23 }} />
               ) : (
                 <div className="h-1.5 w-1.5 rounded-full bg-border" />
               )}

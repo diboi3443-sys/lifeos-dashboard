@@ -52,8 +52,8 @@ export function FinanceCard() {
     <div className="flex flex-col rounded-2xl border border-border bg-card p-4 sm:p-5 lg:col-span-1">
       <div className="mb-3 flex items-center justify-between sm:mb-4">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-c-violet/10">
-            <Wallet className="h-4 w-4 text-c-violet" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-c-violet/10 sm:h-11 sm:w-11">
+            <Wallet className="h-5 w-5 text-c-violet sm:h-6 sm:w-6" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground">Финансы</h3>
@@ -105,17 +105,17 @@ export function FinanceCard() {
       {/* Bottom stats */}
       <div className="mt-auto grid grid-cols-3 gap-1.5 sm:gap-2">
         <div className="flex flex-col items-center gap-0.5 rounded-lg border border-border bg-secondary p-2 sm:gap-1 sm:p-2.5">
-          <ArrowUpRight className="h-3 w-3 text-c-emerald sm:h-3.5 sm:w-3.5" />
+          <ArrowUpRight className="h-4 w-4 text-c-emerald sm:h-5 sm:w-5" />
           <span className="text-[11px] font-bold tabular-nums text-foreground sm:text-xs">{fmt(Math.round(budget.income / 1000))}к</span>
           <span className="text-[9px] text-muted-foreground sm:text-[10px]">Доход</span>
         </div>
         <div className="flex flex-col items-center gap-0.5 rounded-lg border border-border bg-secondary p-2 sm:gap-1 sm:p-2.5">
-          <ArrowDownRight className="h-3 w-3 text-c-rose sm:h-3.5 sm:w-3.5" />
+          <ArrowDownRight className="h-4 w-4 text-c-rose sm:h-5 sm:w-5" />
           <span className="text-[11px] font-bold tabular-nums text-foreground sm:text-xs">{fmt(Math.round(monthSpent / 1000))}к</span>
           <span className="text-[9px] text-muted-foreground sm:text-[10px]">Расход</span>
         </div>
         <div className="flex flex-col items-center gap-0.5 rounded-lg border border-border bg-secondary p-2 sm:gap-1 sm:p-2.5">
-          <PiggyBank className="h-3 w-3 text-c-sky sm:h-3.5 sm:w-3.5" />
+          <PiggyBank className="h-4 w-4 text-c-sky sm:h-5 sm:w-5" />
           <span className="text-[11px] font-bold tabular-nums text-foreground sm:text-xs">{fmt(Math.round(saveAmount / 1000))}к</span>
           <span className="text-[9px] text-muted-foreground sm:text-[10px]">Копилка</span>
         </div>

@@ -2,15 +2,19 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import {
+    Shield, Dumbbell, Brain, Heart, Sparkles, GraduationCap,
+    type LucideIcon,
+} from 'lucide-react';
 import PhotoAvatar from '@/components/PhotoAvatar';
 
-const FEATURES = [
-    { imgSrc: '/icons/Discipline (Characteristic Icon).jpg', label: '19 привычек', desc: 'Ежедневный чек-лист дисциплины', color: '#ef4444' },
-    { imgSrc: '/icons/Physics (Statistic Icon).jpg', label: 'Тренировки', desc: 'Протокол физической прокачки', color: '#22c55e' },
-    { imgSrc: '/icons/Intellect (Characteristic Icon).jpg', label: 'Интеллект', desc: 'Чтение, Deep Work, навыки', color: '#f97316' },
-    { imgSrc: '/icons/Resilience (Statistic Icon).jpg', label: 'Устойчивость', desc: 'Медитация, холод, дисциплина', color: '#3b82f6' },
-    { imgSrc: '/icons/Charisma (Statistic Icon).jpg', label: 'Харизма', desc: 'Речь, нетворк, влияние', color: '#8b5cf6' },
-    { imgSrc: '/icons/Knowledge (Sidebar Icon).jpg', label: 'База знаний', desc: '9 книг + философский кодекс', color: '#eab308' },
+const FEATURES: { icon: LucideIcon; label: string; desc: string; color: string }[] = [
+    { icon: Shield, label: '19 привычек', desc: 'Ежедневный чек-лист дисциплины', color: '#ef4444' },
+    { icon: Dumbbell, label: 'Тренировки', desc: 'Протокол физической прокачки', color: '#22c55e' },
+    { icon: Brain, label: 'Интеллект', desc: 'Чтение, Deep Work, навыки', color: '#f97316' },
+    { icon: Heart, label: 'Устойчивость', desc: 'Медитация, холод, дисциплина', color: '#3b82f6' },
+    { icon: Sparkles, label: 'Харизма', desc: 'Речь, нетворк, влияние', color: '#8b5cf6' },
+    { icon: GraduationCap, label: 'База знаний', desc: '9 книг + философский кодекс', color: '#eab308' },
 ];
 
 const PHASES = [
@@ -149,25 +153,33 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                         </p>
 
                         <div className="grid grid-cols-2 gap-2.5 mb-6 sm:gap-3 sm:mb-8">
-                            {FEATURES.map((f, i) => (
-                                <motion.div
-                                    key={f.label}
-                                    initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: i * 0.1 }}
-                                    className="p-3 rounded-xl border border-border sm:p-4"
-                                    style={{
-                                        background: `linear-gradient(135deg, ${f.color}06, ${f.color}02)`,
-                                        borderColor: `${f.color}12`,
-                                    }}
-                                >
-                                    <div className="flex items-center gap-2.5 mb-1 sm:gap-3">
-                                        <img src={f.imgSrc} alt={f.label} className="w-5 h-5 rounded object-cover shadow-sm" />
-                                        <span className="font-bold text-xs text-foreground sm:text-sm">{f.label}</span>
-                                    </div>
-                                    <p className="text-[10px] text-muted-foreground/60 ml-[30px] sm:text-xs sm:ml-[34px]">{f.desc}</p>
-                                </motion.div>
-                            ))}
+                            {FEATURES.map((f, i) => {
+                                const Icon = f.icon;
+                                return (
+                                    <motion.div
+                                        key={f.label}
+                                        initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: i * 0.1 }}
+                                        className="p-3.5 rounded-xl border border-border sm:p-4"
+                                        style={{
+                                            background: `linear-gradient(135deg, ${f.color}08, ${f.color}03)`,
+                                            borderColor: `${f.color}15`,
+                                        }}
+                                    >
+                                        <div className="flex items-center gap-2.5 mb-1.5 sm:gap-3">
+                                            <div
+                                                className="flex h-9 w-9 items-center justify-center rounded-lg shrink-0 sm:h-10 sm:w-10"
+                                                style={{ background: `${f.color}15` }}
+                                            >
+                                                <Icon className="w-5 h-5 sm:w-[22px] sm:h-[22px]" style={{ color: f.color }} />
+                                            </div>
+                                            <span className="font-bold text-xs text-foreground sm:text-sm">{f.label}</span>
+                                        </div>
+                                        <p className="text-[10px] text-muted-foreground/60 ml-[46px] sm:text-xs sm:ml-[52px]">{f.desc}</p>
+                                    </motion.div>
+                                );
+                            })}
                         </div>
 
                         <div className="flex gap-2.5 justify-center sm:gap-3">

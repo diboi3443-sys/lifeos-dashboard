@@ -2,38 +2,44 @@
 
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import {
+    Sun, Snowflake, Brain, BookOpen, Dumbbell, Code2,
+    ShieldOff, Droplets, Footprints, Moon, Ban, Wine,
+    BedDouble, Columns2, Heart, Wrench, Users, Wallet,
+    Pill, Shield, type LucideIcon, ChevronLeft, ChevronRight,
+} from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import { useLocalStorage, formatDate, formatDateRu } from '@/lib/storage';
 
 /* ═══ HABITS DATA ═══ */
-const HABITS = [
-    { id: 'wake', label: 'Подъём 5:00', iconSrc: '/icons/Morning (Diary Icon).jpg' },
-    { id: 'cold', label: 'Холодный душ', iconSrc: '/icons/Physical (Sidebar Icon).jpg' },
-    { id: 'meditate', label: 'Медитация', iconSrc: '/icons/Resilience (Statistic Icon).jpg', tooltip: '15 минут в тишине. Концентрация на дыхании. Если отвлекся - мягко возвращайся.' },
-    { id: 'read', label: 'Чтение', iconSrc: '/icons/Knowledge (Sidebar Icon).jpg' },
-    { id: 'workout', label: 'Тренировка', iconSrc: '/icons/Physical (Sidebar Icon).jpg', tooltip: 'Минимум 45 мин интенсивной нагрузки или протокол силы.' },
-    { id: 'deepwork', label: 'Deep Work 4ч', iconSrc: '/icons/Intellect (Characteristic Icon).jpg', tooltip: 'Сфокусированная работа без отвлечений и телефона.' },
-    { id: 'nosugar', label: 'Без сахара', iconSrc: '/icons/Discipline (Characteristic Icon).jpg' },
-    { id: 'water', label: 'Вода 2л', iconSrc: '/icons/Physics (Statistic Icon).jpg' },
-    { id: 'walk', label: 'Прогулка', iconSrc: '/icons/Physical (Sidebar Icon).jpg' },
-    { id: 'journal', label: 'Журнал вечер', iconSrc: '/icons/Evening (Diary Icon).jpg' },
-    { id: 'noporn', label: 'NoFap', iconSrc: '/icons/Discipline (Characteristic Icon).jpg' },
-    { id: 'noalcohol', label: 'Без алкоголя', iconSrc: '/icons/Discipline (Characteristic Icon).jpg' },
-    { id: 'sleep', label: 'Сон до 22:30', iconSrc: '/icons/Evening (Diary Icon).jpg' },
-    { id: 'posture', label: 'Осанка', iconSrc: '/icons/Physical (Sidebar Icon).jpg', tooltip: 'Регулярная проверка на прямую спину, лопатки вместе.' },
-    { id: 'gratitude', label: 'Благодарность', iconSrc: '/icons/Charisma (Statistic Icon).jpg' },
-    { id: 'skills', label: 'Навык 30 мин', iconSrc: '/icons/Intellect (Characteristic Icon).jpg' },
-    { id: 'social', label: 'Соц. контакт', iconSrc: '/icons/Charisma (Statistic Icon).jpg' },
-    { id: 'finance', label: 'Расходы', iconSrc: '/icons/Finance (Sidebar Icon).jpg' },
-    { id: 'vitamins', label: 'Витамины', iconSrc: '/icons/Physics (Statistic Icon).jpg' },
+const HABITS: { id: string; label: string; icon: LucideIcon; color: string; tooltip?: string }[] = [
+    { id: 'wake', label: 'Подъём 5:00', icon: Sun, color: '#f59e0b' },
+    { id: 'cold', label: 'Холодный душ', icon: Snowflake, color: '#38bdf8' },
+    { id: 'meditate', label: 'Медитация', icon: Brain, color: '#8b5cf6', tooltip: '15 минут в тишине. Концентрация на дыхании.' },
+    { id: 'read', label: 'Чтение', icon: BookOpen, color: '#f59e0b' },
+    { id: 'workout', label: 'Тренировка', icon: Dumbbell, color: '#22c55e', tooltip: 'Минимум 45 мин интенсивной нагрузки.' },
+    { id: 'deepwork', label: 'Deep Work 4ч', icon: Code2, color: '#6366f1', tooltip: 'Сфокусированная работа без отвлечений.' },
+    { id: 'nosugar', label: 'Без сахара', icon: ShieldOff, color: '#ef4444' },
+    { id: 'water', label: 'Вода 2л', icon: Droplets, color: '#38bdf8' },
+    { id: 'walk', label: 'Прогулка', icon: Footprints, color: '#22c55e' },
+    { id: 'journal', label: 'Журнал вечер', icon: Moon, color: '#8b5cf6' },
+    { id: 'noporn', label: 'NoFap', icon: Ban, color: '#ef4444' },
+    { id: 'noalcohol', label: 'Без алкоголя', icon: Wine, color: '#ef4444' },
+    { id: 'sleep', label: 'Сон до 22:30', icon: BedDouble, color: '#8b5cf6' },
+    { id: 'posture', label: 'Осанка', icon: Columns2, color: '#22c55e', tooltip: 'Проверка осанки - спина прямая, лопатки вместе.' },
+    { id: 'gratitude', label: 'Благодарность', icon: Heart, color: '#ec4899' },
+    { id: 'skills', label: 'Навык 30 мин', icon: Wrench, color: '#6366f1' },
+    { id: 'social', label: 'Соц. контакт', icon: Users, color: '#a855f7' },
+    { id: 'finance', label: 'Расходы', icon: Wallet, color: '#f59e0b' },
+    { id: 'vitamins', label: 'Витамины', icon: Pill, color: '#22c55e' },
 ];
 
-const DIRECTIONS = [
-    { key: 'discipline', label: 'Дисциплина', color: '#ef4444', imgSrc: '/icons/Discipline (Characteristic Icon).jpg' },
-    { key: 'physical', label: 'Физика', color: '#22c55e', imgSrc: '/icons/Physics (Characteristic Icon).jpg' },
-    { key: 'intellect', label: 'Интеллект', color: '#3b82f6', imgSrc: '/icons/Intellect (Characteristic Icon).jpg' },
-    { key: 'resilience', label: 'Устойчивость', color: '#0ea5e9', imgSrc: '/icons/Resilience (Characteristic Icon).jpg' },
-    { key: 'charisma', label: 'Харизма', color: '#8b5cf6', imgSrc: '/icons/Charisma (Characteristic Icon).jpg' },
+const DIRECTIONS: { key: string; label: string; color: string; icon: LucideIcon }[] = [
+    { key: 'discipline', label: 'Дисциплина', color: '#ef4444', icon: Shield },
+    { key: 'physical', label: 'Физика', color: '#22c55e', icon: Dumbbell },
+    { key: 'intellect', label: 'Интеллект', color: '#3b82f6', icon: Brain },
+    { key: 'resilience', label: 'Устойчивость', color: '#0ea5e9', icon: Heart },
+    { key: 'charisma', label: 'Харизма', color: '#8b5cf6', icon: Users },
 ];
 
 interface DayData {
@@ -110,15 +116,15 @@ export default function TrackerPage() {
         >
             {/* Date navigation */}
             <motion.div variants={itemVariants} className="flex items-center gap-4 mb-6">
-                <button onClick={() => changeDate(-1)} className="w-8 h-8 rounded-lg overflow-hidden hover:opacity-80 transition-opacity shadow-[0_0_10px_rgba(255,255,255,0.1)]">
-                    <img src="/icons/arrow_left_right_pair.jpg" className="w-full h-[200%] object-cover" style={{ objectPosition: 'top' }} alt="Left" />
+                <button onClick={() => changeDate(-1)} className="w-9 h-9 rounded-lg flex items-center justify-center bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                    <ChevronLeft className="w-5 h-5 text-white/60" />
                 </button>
                 <div className="text-center flex-1">
                     <h2 className="text-xl font-bold">{formatDateRu(currentDate)}</h2>
                     <p className="text-white/30 text-sm">{isToday ? 'Сегодня' : dateKey}</p>
                 </div>
-                <button onClick={() => changeDate(1)} className="w-8 h-8 rounded-lg overflow-hidden hover:opacity-80 transition-opacity shadow-[0_0_10px_rgba(255,255,255,0.1)]">
-                    <img src="/icons/arrow_left_right_pair.jpg" className="w-full h-[200%] object-cover" style={{ objectPosition: 'bottom' }} alt="Right" />
+                <button onClick={() => changeDate(1)} className="w-9 h-9 rounded-lg flex items-center justify-center bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                    <ChevronRight className="w-5 h-5 text-white/60" />
                 </button>
                 {!isToday && (
                     <button onClick={goToday}
@@ -145,8 +151,8 @@ export default function TrackerPage() {
                                         className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200
                                             ${done ? 'bg-green-500/10 text-green-400' : 'hover:bg-white/5 text-white/60'}`}
                                     >
-                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${done ? 'bg-green-500/20' : 'bg-white/5'}`}>
-                                            <img src={h.iconSrc} alt={h.label} className={`w-5 h-5 rounded object-cover ${done ? 'opacity-100' : 'opacity-70 group-hover:opacity-100 transition-opacity'}`} />
+                                        <div className="w-9 h-9 rounded-lg flex items-center justify-center transition-all shrink-0" style={{ background: done ? `${h.color}20` : 'rgba(255,255,255,0.05)' }}>
+                                            <h.icon className="w-5 h-5 transition-opacity" style={{ color: done ? h.color : `${h.color}80`, opacity: done ? 1 : 0.7 }} />
                                         </div>
                                         <div className="flex items-center gap-2 flex-1 relative">
                                             <span className="text-sm">{h.label}</span>
@@ -248,10 +254,8 @@ export default function TrackerPage() {
                                     <div key={dir.key}>
                                         <div className="flex items-center justify-between mb-1">
                                             <div className="flex items-center gap-2">
-                                                <div className="w-10 h-10 rounded-xl overflow-hidden shadow-[0_4px_10px_rgba(0,0,0,0.5)] bg-black" style={{ border: `1px solid ${dir.color}50` }}>
-                                                    {dir.imgSrc ? (
-                                                        <img src={dir.imgSrc} alt={dir.label} className="w-full h-full object-cover transform scale-125" />
-                                                    ) : null}
+                                                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${dir.color}15`, border: `1px solid ${dir.color}30` }}>
+                                                    <dir.icon className="w-5 h-5" style={{ color: dir.color }} />
                                                 </div>
                                                 <span className="text-xs text-white/60">{dir.label}</span>
                                             </div>

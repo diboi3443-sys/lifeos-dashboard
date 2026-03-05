@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Circle, Clock, Eye, CheckCircle2 } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import { useLocalStorage } from '@/lib/storage';
 
@@ -65,10 +66,10 @@ const DEFAULT_TASKS: ProjectTask[] = [
 ];
 
 const COLUMNS: { id: TaskStatus; label: string; iconNode: React.ReactNode; color: string }[] = [
-    { id: 'todo', label: 'To Do', iconNode: <img src="/icons/to_do_icon.jpg" className="w-4 h-4 rounded-full object-cover" alt="To Do" />, color: 'text-white/70 hover:text-white transition-colors' },
-    { id: 'in-progress', label: 'In Progress', iconNode: <img src="/icons/in_progress_icon.jpg" className="w-4 h-4 rounded-full object-cover" alt="In Progress" />, color: 'text-blue-400' },
-    { id: 'review', label: 'Review', iconNode: <img src="/icons/review_icon.jpg" className="w-4 h-4 rounded-full object-cover" alt="Review" />, color: 'text-purple-400' },
-    { id: 'done', label: 'Done', iconNode: <img src="/icons/done_icon_example.jpg" className="w-4 h-4 rounded-full object-cover" alt="Done" />, color: 'text-green-400' },
+    { id: 'todo', label: 'To Do', iconNode: <Circle className="w-5 h-5 text-white/50" />, color: 'text-white/70 hover:text-white transition-colors' },
+    { id: 'in-progress', label: 'In Progress', iconNode: <Clock className="w-5 h-5 text-blue-400" />, color: 'text-blue-400' },
+    { id: 'review', label: 'Review', iconNode: <Eye className="w-5 h-5 text-purple-400" />, color: 'text-purple-400' },
+    { id: 'done', label: 'Done', iconNode: <CheckCircle2 className="w-5 h-5 text-green-400" />, color: 'text-green-400' },
 ];
 
 

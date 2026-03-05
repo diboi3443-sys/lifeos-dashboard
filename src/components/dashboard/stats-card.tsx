@@ -25,8 +25,8 @@ export function StatsCard({ stats }: { stats: UserStats }) {
     <div className="col-span-1 rounded-2xl border border-border bg-card p-4 sm:p-5 sm:col-span-2 lg:col-span-3">
       <div className="mb-4 flex items-center justify-between sm:mb-5">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-c-violet/10">
-            <Swords className="h-4 w-4 text-c-violet" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-c-violet/10 sm:h-11 sm:w-11">
+            <Swords className="h-5 w-5 text-c-violet sm:h-6 sm:w-6" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-foreground">Характеристики</h3>
@@ -44,8 +44,8 @@ export function StatsCard({ stats }: { stats: UserStats }) {
         {statArray.map((s) => (
           <div key={s.name} className="rounded-xl border border-border bg-secondary p-3 sm:p-4">
             <div className="mb-2 flex items-center justify-between sm:mb-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg sm:h-9 sm:w-9" style={{ backgroundColor: `${s.color}12` }}>
-                <s.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" style={{ color: s.color }} />
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg sm:h-10 sm:w-10" style={{ backgroundColor: `${s.color}15` }}>
+                <s.icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color: s.color }} />
               </div>
               <span className="flex items-center gap-0.5 text-[10px] font-medium text-c-emerald sm:text-[11px]">
                 <TrendingUp className="h-2.5 w-2.5 sm:h-3 sm:w-3" />{s.delta}
