@@ -89,8 +89,8 @@ export default function Home() {
                 maxXp={app.maxXp}
             />
 
-            {/* Connection status indicator */}
-            <div className="fixed top-3 right-3 z-40 md:top-4 md:right-4">
+            {/* Connection status indicator - hidden on mobile top bar area, visible on desktop */}
+            <div className="hidden md:block fixed top-4 right-4 z-40">
                 <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-medium border
                     ${app.isOnline
                         ? 'bg-c-emerald/5 text-c-emerald border-c-emerald/15'
@@ -98,7 +98,7 @@ export default function Home() {
                     }`}
                 >
                     <div className={`w-1.5 h-1.5 rounded-full ${app.isOnline ? 'bg-c-emerald' : 'bg-c-amber'}`} />
-                    <span className="hidden sm:inline">{app.isOnline ? 'API подключён' : 'Офлайн'}</span>
+                    <span>{app.isOnline ? 'API подключён' : 'Офлайн'}</span>
                 </div>
             </div>
 
