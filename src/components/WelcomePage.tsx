@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import PhotoAvatar from '@/components/PhotoAvatar';
 
 const FEATURES = [
     { imgSrc: '/icons/Discipline (Characteristic Icon).jpg', label: '19 привычек', desc: 'Ежедневный чек-лист дисциплины', color: '#ef4444' },
@@ -13,9 +14,9 @@ const FEATURES = [
 ];
 
 const PHASES = [
-    { num: 1, name: 'Фундамент', months: '1–3', color: '#ef4444', desc: '90 дней без пропуска' },
-    { num: 2, name: 'Рост', months: '4–9', color: '#3b82f6', desc: 'Углубление каждого направления' },
-    { num: 3, name: 'Трансформация', months: '10–18', color: '#eab308', desc: 'Интеграция и мастерство' },
+    { num: 1, name: 'Фундамент', months: '1-3', color: '#ef4444', desc: '90 дней без пропуска' },
+    { num: 2, name: 'Рост', months: '4-9', color: '#3b82f6', desc: 'Углубление каждого направления' },
+    { num: 3, name: 'Трансформация', months: '10-18', color: '#eab308', desc: 'Интеграция и мастерство' },
 ];
 
 interface WelcomePageProps {
@@ -23,7 +24,7 @@ interface WelcomePageProps {
 }
 
 export default function WelcomePage({ onStart }: WelcomePageProps) {
-    const [step, setStep] = useState(0); // 0=hero, 1=features, 2=name input
+    const [step, setStep] = useState(0);
     const [name, setName] = useState('');
 
     const handleStart = () => {
@@ -31,13 +32,13 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4"
+        <div className="min-h-screen flex items-center justify-center p-4 sm:p-6"
             style={{
-                background: 'radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.12) 0%, transparent 60%), radial-gradient(ellipse at 80% 100%, rgba(139,92,246,0.08) 0%, transparent 50%), #0a0a0f',
+                background: 'radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.08) 0%, transparent 60%), radial-gradient(ellipse at 80% 100%, rgba(139,92,246,0.05) 0%, transparent 50%), var(--background)',
             }}
         >
             <AnimatePresence mode="wait">
-                {/* ═══ Step 0: Hero ═══ */}
+                {/* Step 0: Hero */}
                 {step === 0 && (
                     <motion.div
                         key="hero"
@@ -45,23 +46,20 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -30 }}
                         transition={{ duration: 0.6 }}
-                        className="text-center max-w-lg"
+                        className="text-center max-w-md w-full px-2"
                     >
-                        {/* Logo */}
                         <motion.div
                             initial={{ scale: 0.5, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-                            className="mb-8"
+                            className="mb-6 sm:mb-8"
                         >
-                            <div className="w-24 h-24 mx-auto rounded-2xl flex items-center justify-center text-4xl font-black"
+                            <div className="w-20 h-20 mx-auto rounded-2xl flex items-center justify-center text-3xl font-black border border-border sm:w-24 sm:h-24 sm:text-4xl"
                                 style={{
-                                    background: 'linear-gradient(135deg, rgba(59,130,246,0.2), rgba(139,92,246,0.2))',
-                                    border: '1px solid rgba(255,255,255,0.08)',
-                                    boxShadow: '0 0 60px rgba(59,130,246,0.15)',
+                                    background: 'linear-gradient(135deg, rgba(99,102,241,0.12), rgba(139,92,246,0.08))',
                                 }}
                             >
-                                <span className="bg-gradient-to-br from-orange-400 to-red-500 bg-clip-text text-transparent">18</span>
+                                <span className="bg-gradient-to-br from-c-amber to-c-rose bg-clip-text text-transparent">18</span>
                             </div>
                         </motion.div>
 
@@ -69,9 +67,9 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
-                            className="text-4xl font-black mb-3"
+                            className="text-3xl font-black mb-2 sm:text-4xl"
                         >
-                            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-orange-400 bg-clip-text text-transparent">
+                            <span className="bg-gradient-to-r from-primary via-c-violet to-c-amber bg-clip-text text-transparent">
                                 LifeOS
                             </span>
                         </motion.h1>
@@ -80,7 +78,7 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.6 }}
-                            className="text-white/40 text-lg mb-2"
+                            className="text-muted-foreground/60 text-base mb-1 sm:text-lg"
                         >
                             18 месяцев. 5 направлений.
                         </motion.p>
@@ -88,29 +86,29 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.7 }}
-                            className="text-white/60 text-xl font-semibold mb-10"
+                            className="text-muted-foreground text-lg font-semibold mb-8 sm:text-xl sm:mb-10"
                         >
                             Полная перезагрузка жизни.
                         </motion.p>
 
-                        {/* Phases preview */}
+                        {/* Phases */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.9 }}
-                            className="flex gap-3 mb-10 justify-center"
+                            className="flex gap-2 mb-8 justify-center sm:gap-3 sm:mb-10"
                         >
                             {PHASES.map((phase) => (
                                 <div key={phase.num}
-                                    className="px-4 py-3 rounded-xl text-center"
+                                    className="px-3 py-2.5 rounded-xl text-center border border-border flex-1 max-w-[120px] sm:px-4 sm:py-3"
                                     style={{
-                                        background: `linear-gradient(135deg, ${phase.color}15, ${phase.color}05)`,
-                                        border: `1px solid ${phase.color}25`,
+                                        background: `linear-gradient(135deg, ${phase.color}08, ${phase.color}03)`,
+                                        borderColor: `${phase.color}15`,
                                     }}
                                 >
-                                    <div className="text-xs text-white/30 mb-1">Фаза {phase.num}</div>
-                                    <div className="text-sm font-bold" style={{ color: phase.color }}>{phase.name}</div>
-                                    <div className="text-[10px] text-white/20 mt-0.5">Мес. {phase.months}</div>
+                                    <div className="text-[9px] text-muted-foreground/50 mb-0.5 sm:text-[10px]">Фаза {phase.num}</div>
+                                    <div className="text-xs font-bold sm:text-sm" style={{ color: phase.color }}>{phase.name}</div>
+                                    <div className="text-[9px] text-muted-foreground/30 mt-0.5 sm:text-[10px]">Мес. {phase.months}</div>
                                 </div>
                             ))}
                         </motion.div>
@@ -119,22 +117,21 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.1 }}
-                            whileHover={{ scale: 1.03, boxShadow: '0 0 40px rgba(59,130,246,0.3)' }}
+                            whileHover={{ scale: 1.03 }}
                             whileTap={{ scale: 0.97 }}
                             onClick={() => setStep(1)}
-                            className="px-8 py-4 rounded-2xl text-white font-bold text-lg cursor-pointer flex items-center gap-3 mx-auto"
+                            className="px-6 py-3.5 rounded-2xl text-primary-foreground font-bold text-base cursor-pointer flex items-center gap-2.5 mx-auto border border-primary/20 sm:px-8 sm:py-4 sm:text-lg sm:gap-3"
                             style={{
-                                background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                boxShadow: '0 4px 30px rgba(59,130,246,0.25)',
+                                background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                                boxShadow: '0 4px 24px rgba(99,102,241,0.25)',
                             }}
                         >
-                            ✨ Узнать больше ▶
+                            Узнать больше
                         </motion.button>
                     </motion.div>
                 )}
 
-                {/* ═══ Step 1: Features ═══ */}
+                {/* Step 1: Features */}
                 {step === 1 && (
                     <motion.div
                         key="features"
@@ -142,42 +139,41 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -30 }}
                         transition={{ duration: 0.6 }}
-                        className="max-w-2xl w-full"
+                        className="max-w-2xl w-full px-2"
                     >
-                        <h2 className="text-2xl font-black text-center mb-2">
+                        <h2 className="text-xl font-black text-center mb-1 text-foreground sm:text-2xl">
                             Что тебя ждёт
                         </h2>
-                        <p className="text-white/40 text-center mb-8">
+                        <p className="text-muted-foreground/60 text-center mb-6 text-sm sm:mb-8">
                             5 направлений трансформации за 548 дней
                         </p>
 
-                        <div className="grid grid-cols-2 gap-3 mb-8">
+                        <div className="grid grid-cols-2 gap-2.5 mb-6 sm:gap-3 sm:mb-8">
                             {FEATURES.map((f, i) => (
                                 <motion.div
                                     key={f.label}
                                     initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: i * 0.1 }}
-                                    className="p-4 rounded-xl"
+                                    className="p-3 rounded-xl border border-border sm:p-4"
                                     style={{
-                                        background: `linear-gradient(135deg, ${f.color}08, ${f.color}03)`,
-                                        border: `1px solid ${f.color}15`,
+                                        background: `linear-gradient(135deg, ${f.color}06, ${f.color}02)`,
+                                        borderColor: `${f.color}12`,
                                     }}
                                 >
-                                    <div className="flex items-center gap-3 mb-1">
-                                        <img src={f.imgSrc} alt={f.label} className="w-5 h-5 rounded object-cover shadow-[0_2px_10px_rgba(0,0,0,0.5)]" />
-                                        <span className="font-bold text-sm">{f.label}</span>
+                                    <div className="flex items-center gap-2.5 mb-1 sm:gap-3">
+                                        <img src={f.imgSrc} alt={f.label} className="w-5 h-5 rounded object-cover shadow-sm" />
+                                        <span className="font-bold text-xs text-foreground sm:text-sm">{f.label}</span>
                                     </div>
-                                    <p className="text-xs text-white/30 ml-8">{f.desc}</p>
+                                    <p className="text-[10px] text-muted-foreground/60 ml-[30px] sm:text-xs sm:ml-[34px]">{f.desc}</p>
                                 </motion.div>
                             ))}
                         </div>
 
-                        <div className="flex gap-3 justify-center">
+                        <div className="flex gap-2.5 justify-center sm:gap-3">
                             <button
                                 onClick={() => setStep(0)}
-                                className="px-6 py-3 rounded-xl text-white/50 text-sm cursor-pointer hover:text-white/70 transition"
-                                style={{ border: '1px solid rgba(255,255,255,0.06)' }}
+                                className="px-5 py-2.5 rounded-xl text-muted-foreground text-sm cursor-pointer hover:text-foreground transition border border-border sm:px-6 sm:py-3"
                             >
                                 Назад
                             </button>
@@ -185,20 +181,19 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                                 whileHover={{ scale: 1.03 }}
                                 whileTap={{ scale: 0.97 }}
                                 onClick={() => setStep(2)}
-                                className="px-8 py-3 rounded-xl text-white font-bold cursor-pointer flex items-center gap-2"
+                                className="px-6 py-2.5 rounded-xl text-primary-foreground font-bold cursor-pointer flex items-center gap-2 border border-primary/20 sm:px-8 sm:py-3"
                                 style={{
-                                    background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                                    border: '1px solid rgba(255,255,255,0.1)',
-                                    boxShadow: '0 4px 30px rgba(59,130,246,0.2)',
+                                    background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                                    boxShadow: '0 4px 24px rgba(99,102,241,0.2)',
                                 }}
                             >
-                                🔥 Готов начать ▶
+                                Готов начать
                             </motion.button>
                         </div>
                     </motion.div>
                 )}
 
-                {/* ═══ Step 2: Name ═══ */}
+                {/* Step 2: Name + Photo */}
                 {step === 2 && (
                     <motion.div
                         key="name"
@@ -206,20 +201,21 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -30 }}
                         transition={{ duration: 0.6 }}
-                        className="max-w-md w-full text-center"
+                        className="max-w-md w-full text-center px-2"
                     >
+                        {/* Photo upload */}
                         <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
                             transition={{ type: 'spring', stiffness: 200 }}
-                            className="flex justify-center mb-6 text-white text-opacity-90"
+                            className="flex justify-center mb-5 sm:mb-6"
                         >
-                            <img src="/icons/3D Daily Mission Icon.jpg" alt="Start" className="w-[80px] h-[80px] object-cover rounded-2xl shadow-[0_0_30px_rgba(59,130,246,0.3)]" />
+                            <PhotoAvatar size={120} editable />
                         </motion.div>
 
-                        <h2 className="text-2xl font-black mb-2">Как тебя зовут?</h2>
-                        <p className="text-white/40 text-sm mb-8">
-                            Твоё имя будет на дашборде и в системе прогресса
+                        <h2 className="text-xl font-black mb-1 text-foreground sm:text-2xl">Как тебя зовут?</h2>
+                        <p className="text-muted-foreground/60 text-xs mb-5 sm:text-sm sm:mb-6">
+                            Загрузи фото и введи имя для дашборда
                         </p>
 
                         <input
@@ -228,42 +224,40 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                             onChange={(e) => setName(e.target.value)}
                             placeholder="Введи имя..."
                             autoFocus
-                            className="w-full px-6 py-4 rounded-xl bg-white/5 border border-white/10 text-white text-center text-lg font-semibold placeholder:text-white/20 focus:outline-none focus:border-blue-500/40 focus:ring-2 focus:ring-blue-500/10 transition mb-6"
+                            className="w-full px-5 py-3.5 rounded-xl bg-secondary border border-border text-foreground text-center text-base font-semibold placeholder:text-muted-foreground/30 focus:outline-none focus:border-primary/40 focus:ring-2 focus:ring-primary/10 transition mb-5 sm:px-6 sm:py-4 sm:text-lg sm:mb-6"
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') setStep(3);
                             }}
                         />
 
-                        <div className="flex gap-3 justify-center">
+                        <div className="flex gap-2.5 justify-center sm:gap-3">
                             <button
                                 onClick={() => setStep(1)}
-                                className="px-6 py-3 rounded-xl text-white/50 text-sm cursor-pointer hover:text-white/70 transition"
-                                style={{ border: '1px solid rgba(255,255,255,0.06)' }}
+                                className="px-5 py-2.5 rounded-xl text-muted-foreground text-sm cursor-pointer hover:text-foreground transition border border-border sm:px-6 sm:py-3"
                             >
                                 Назад
                             </button>
                             <motion.button
-                                whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(59,130,246,0.2)' }}
-                                whileTap={{ scale: 0.95 }}
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.97 }}
                                 onClick={() => setStep(3)}
-                                className="px-10 py-4 rounded-2xl text-white font-black text-lg cursor-pointer flex items-center gap-3"
+                                className="px-6 py-2.5 rounded-xl text-primary-foreground font-bold cursor-pointer flex items-center gap-2 border border-primary/20 sm:px-8 sm:py-3 sm:text-lg"
                                 style={{
-                                    background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                                    border: '1px solid rgba(255,255,255,0.15)',
-                                    boxShadow: '0 4px 30px rgba(59,130,246,0.2)',
+                                    background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                                    boxShadow: '0 4px 24px rgba(99,102,241,0.2)',
                                 }}
                             >
-                                Продолжить ▶
+                                Продолжить
                             </motion.button>
                         </div>
 
-                        <p className="text-white/15 text-xs mt-6">
+                        <p className="text-muted-foreground/25 text-[10px] mt-5 sm:text-xs sm:mt-6">
                             Шаг 1 из 2
                         </p>
                     </motion.div>
                 )}
 
-                {/* ═══ Step 3: Core Goals ═══ */}
+                {/* Step 3: Core Goals */}
                 {step === 3 && (
                     <motion.div
                         key="start"
@@ -271,39 +265,50 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -30 }}
                         transition={{ duration: 0.6 }}
-                        className="max-w-xl w-full"
+                        className="max-w-xl w-full px-2"
                     >
-                        <h2 className="text-2xl font-black mb-2 text-center">Твои главные ориентиры</h2>
-                        <p className="text-white/40 text-sm mb-6 text-center">
-                            Определи 3 главные цели. Они будут на твоем радаре каждый день.
+                        <h2 className="text-xl font-black mb-1 text-center text-foreground sm:text-2xl">Твои главные ориентиры</h2>
+                        <p className="text-muted-foreground/60 text-xs mb-5 text-center sm:text-sm sm:mb-6">
+                            Определи 3 главные цели. Они будут на твоём радаре каждый день.
                         </p>
 
-                        <div className="space-y-4 mb-8">
+                        <div className="flex flex-col gap-3 mb-6 sm:gap-4 sm:mb-8">
                             <div>
-                                <label className="block text-sm font-semibold text-c-emerald mb-1">1. Что вы хотите иметь?</label>
-                                <textarea id="goal-have" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-c-emerald/40 focus:ring-1 focus:ring-c-emerald/20 transition resize-none h-20" placeholder="Материальные цели, доходы, окружение..."></textarea>
+                                <label className="block text-xs font-semibold text-c-emerald mb-1 sm:text-sm">1. Что вы хотите иметь?</label>
+                                <textarea
+                                    id="goal-have"
+                                    className="w-full px-3.5 py-2.5 rounded-xl bg-secondary border border-border text-foreground text-xs placeholder:text-muted-foreground/30 focus:outline-none focus:border-c-emerald/40 focus:ring-1 focus:ring-c-emerald/10 transition resize-none h-16 sm:px-4 sm:py-3 sm:text-sm sm:h-20"
+                                    placeholder="Материальные цели, доходы, окружение..."
+                                />
                             </div>
                             <div>
-                                <label className="block text-sm font-semibold text-c-sky mb-1">2. Кем вы хотите быть?</label>
-                                <textarea id="goal-be" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-c-sky/40 focus:ring-1 focus:ring-c-sky/20 transition resize-none h-20" placeholder="Личностные качества, статус, кем ты себя видишь..."></textarea>
+                                <label className="block text-xs font-semibold text-c-sky mb-1 sm:text-sm">2. Кем вы хотите быть?</label>
+                                <textarea
+                                    id="goal-be"
+                                    className="w-full px-3.5 py-2.5 rounded-xl bg-secondary border border-border text-foreground text-xs placeholder:text-muted-foreground/30 focus:outline-none focus:border-c-sky/40 focus:ring-1 focus:ring-c-sky/10 transition resize-none h-16 sm:px-4 sm:py-3 sm:text-sm sm:h-20"
+                                    placeholder="Личностные качества, статус..."
+                                />
                             </div>
                             <div>
-                                <label className="block text-sm font-semibold text-c-rose mb-1">3. Чем бы хотели заниматься?</label>
-                                <textarea id="goal-do" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-c-rose/40 focus:ring-1 focus:ring-c-rose/20 transition resize-none h-20" placeholder="Твоя деятельность, миссия, масштаб..."></textarea>
+                                <label className="block text-xs font-semibold text-c-rose mb-1 sm:text-sm">3. Чем бы хотели заниматься?</label>
+                                <textarea
+                                    id="goal-do"
+                                    className="w-full px-3.5 py-2.5 rounded-xl bg-secondary border border-border text-foreground text-xs placeholder:text-muted-foreground/30 focus:outline-none focus:border-c-rose/40 focus:ring-1 focus:ring-c-rose/10 transition resize-none h-16 sm:px-4 sm:py-3 sm:text-sm sm:h-20"
+                                    placeholder="Твоя деятельность, миссия, масштаб..."
+                                />
                             </div>
                         </div>
 
-                        <div className="flex gap-3 justify-center">
+                        <div className="flex gap-2.5 justify-center sm:gap-3">
                             <button
                                 onClick={() => setStep(2)}
-                                className="px-6 py-3 rounded-xl text-white/50 text-sm cursor-pointer hover:text-white/70 transition"
-                                style={{ border: '1px solid rgba(255,255,255,0.06)' }}
+                                className="px-5 py-2.5 rounded-xl text-muted-foreground text-sm cursor-pointer hover:text-foreground transition border border-border sm:px-6 sm:py-3"
                             >
                                 Назад
                             </button>
                             <motion.button
-                                whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(249,115,22,0.3)' }}
-                                whileTap={{ scale: 0.95 }}
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.97 }}
                                 onClick={() => {
                                     const wantToHave = (document.getElementById('goal-have') as HTMLTextAreaElement)?.value || '';
                                     const wantToBe = (document.getElementById('goal-be') as HTMLTextAreaElement)?.value || '';
@@ -311,14 +316,13 @@ export default function WelcomePage({ onStart }: WelcomePageProps) {
                                     window.localStorage.setItem('core_goals', JSON.stringify({ wantToHave, wantToBe, wantToDo }));
                                     handleStart();
                                 }}
-                                className="px-10 py-4 rounded-2xl text-white font-black text-lg cursor-pointer flex items-center gap-3"
+                                className="px-6 py-2.5 rounded-xl text-primary-foreground font-black cursor-pointer flex items-center gap-2 border border-c-rose/20 sm:px-8 sm:py-3 sm:text-lg"
                                 style={{
                                     background: 'linear-gradient(135deg, #ef4444, #f97316)',
-                                    border: '1px solid rgba(255,255,255,0.15)',
-                                    boxShadow: '0 4px 30px rgba(249,115,22,0.3)',
+                                    boxShadow: '0 4px 24px rgba(239,68,68,0.25)',
                                 }}
                             >
-                                ⚔️ Начать путь
+                                Начать путь
                             </motion.button>
                         </div>
                     </motion.div>

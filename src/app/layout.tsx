@@ -16,6 +16,13 @@ const manrope = Manrope({
 export const metadata: Metadata = {
     title: "LifeOS — Трансформация",
     description: "18 месяцев. 5 направлений. Полная перезагрузка жизни.",
+    viewport: {
+        width: "device-width",
+        initialScale: 1,
+        maximumScale: 1,
+        userScalable: false,
+    },
+    themeColor: "#050505",
 };
 
 export default function RootLayout({
